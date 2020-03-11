@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.qingtai.pubandcollect.mapper.PubimpressionMapper">
+  <resultMap id="BaseResultMap" type="edu.qingtai.pubandcollect.domain.Pubimpression">
+    <id column="uuid" jdbcType="CHAR" property="uuid" />
+    <result column="position" jdbcType="VARCHAR" property="position" />
+    <result column="company" jdbcType="VARCHAR" property="company" />
+    <result column="workPlace" jdbcType="VARCHAR" property="workplace" />
+    <result column="education" jdbcType="VARCHAR" property="education" />
+    <result column="salary" jdbcType="VARCHAR" property="salary" />
+    <result column="insertTime" jdbcType="DATE" property="inserttime" />
+    <result column="label" jdbcType="VARCHAR" property="label" />
+    <result column="truth" jdbcType="INTEGER" property="truth" />
+    <result column="openid" jdbcType="VARCHAR" property="openid" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="edu.qingtai.pubandcollect.domain.Pubimpression">
+    <result column="content" jdbcType="LONGVARCHAR" property="content" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    uuid, position, company, workPlace, education, salary, insertTime, label, truth, 
+    openid
+  </sql>
+  <sql id="Blob_Column_List">
+    content
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="edu.qingtai.pubandcollect.domain.PubimpressionExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from pubimpression
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="edu.qingtai.pubandcollect.domain.PubimpressionExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from pubimpression
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from pubimpression
+    where uuid = #{uuid,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from pubimpression
+    where uuid = #{uuid,jdbcType=CHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="edu.qingtai.pubandcollect.domain.PubimpressionExample">
+    delete from pubimpression
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="edu.qingtai.pubandcollect.domain.Pubimpression">
+    insert into pubimpression (uuid, position, company, 
+      workPlace, education, salary, 
+      insertTime, label, truth, 
+      openid, content)
+    values (#{uuid,jdbcType=CHAR}, #{position,jdbcType=VARCHAR}, #{company,jdbcType=VARCHAR}, 
+      #{workplace,jdbcType=VARCHAR}, #{education,jdbcType=VARCHAR}, #{salary,jdbcType=VARCHAR}, 
+      #{inserttime,jdbcType=DATE}, #{label,jdbcType=VARCHAR}, #{truth,jdbcType=INTEGER}, 
+      #{openid,jdbcType=VARCHAR}, #{content,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="edu.qingtai.pubandcollect.domain.Pubimpression">
+    insert into pubimpression
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="uuid != null">
+        uuid,
+      </if>
+      <if test="position != null">
+        position,
+      </if>
+      <if test="company != null">
+        company,
+      </if>
+      <if test="workplace != null">
+        workPlace,
+      </if>
+      <if test="education != null">
+        education,
+      </if>
+      <if test="salary != null">
+        salary,
+      </if>
+      <if test="inserttime != null">
+        insertTime,
+      </if>
+      <if test="label != null">
+        label,
+      </if>
+      <if test="truth != null">
+        truth,
+      </if>
+      <if test="openid != null">
+        openid,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="uuid != null">
+        #{uuid,jdbcType=CHAR},
+      </if>
+      <if test="position != null">
+        #{position,jdbcType=VARCHAR},
+      </if>
+      <if test="company != null">
+        #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="workplace != null">
+        #{workplace,jdbcType=VARCHAR},
+      </if>
+      <if test="education != null">
+        #{education,jdbcType=VARCHAR},
+      </if>
+      <if test="salary != null">
+        #{salary,jdbcType=VARCHAR},
+      </if>
+      <if test="inserttime != null">
+        #{inserttime,jdbcType=DATE},
+      </if>
+      <if test="label != null">
+        #{label,jdbcType=VARCHAR},
+      </if>
+      <if test="truth != null">
+        #{truth,jdbcType=INTEGER},
+      </if>
+      <if test="openid != null">
+        #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="edu.qingtai.pubandcollect.domain.PubimpressionExample" resultType="java.lang.Long">
+    select count(*) from pubimpression
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update pubimpression
+    <set>
+      <if test="record.uuid != null">
+        uuid = #{record.uuid,jdbcType=CHAR},
+      </if>
+      <if test="record.position != null">
+        position = #{record.position,jdbcType=VARCHAR},
+      </if>
+      <if test="record.company != null">
+        company = #{record.company,jdbcType=VARCHAR},
+      </if>
+      <if test="record.workplace != null">
+        workPlace = #{record.workplace,jdbcType=VARCHAR},
+      </if>
+      <if test="record.education != null">
+        education = #{record.education,jdbcType=VARCHAR},
+      </if>
+      <if test="record.salary != null">
+        salary = #{record.salary,jdbcType=VARCHAR},
+      </if>
+      <if test="record.inserttime != null">
+        insertTime = #{record.inserttime,jdbcType=DATE},
+      </if>
+      <if test="record.label != null">
+        label = #{record.label,jdbcType=VARCHAR},
+      </if>
+      <if test="record.truth != null">
+        truth = #{record.truth,jdbcType=INTEGER},
+      </if>
+      <if test="record.openid != null">
+        openid = #{record.openid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.content != null">
+        content = #{record.content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update pubimpression
+    set uuid = #{record.uuid,jdbcType=CHAR},
+      position = #{record.position,jdbcType=VARCHAR},
+      company = #{record.company,jdbcType=VARCHAR},
+      workPlace = #{record.workplace,jdbcType=VARCHAR},
+      education = #{record.education,jdbcType=VARCHAR},
+      salary = #{record.salary,jdbcType=VARCHAR},
+      insertTime = #{record.inserttime,jdbcType=DATE},
+      label = #{record.label,jdbcType=VARCHAR},
+      truth = #{record.truth,jdbcType=INTEGER},
+      openid = #{record.openid,jdbcType=VARCHAR},
+      content = #{record.content,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update pubimpression
+    set uuid = #{record.uuid,jdbcType=CHAR},
+      position = #{record.position,jdbcType=VARCHAR},
+      company = #{record.company,jdbcType=VARCHAR},
+      workPlace = #{record.workplace,jdbcType=VARCHAR},
+      education = #{record.education,jdbcType=VARCHAR},
+      salary = #{record.salary,jdbcType=VARCHAR},
+      insertTime = #{record.inserttime,jdbcType=DATE},
+      label = #{record.label,jdbcType=VARCHAR},
+      truth = #{record.truth,jdbcType=INTEGER},
+      openid = #{record.openid,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="edu.qingtai.pubandcollect.domain.Pubimpression">
+    update pubimpression
+    <set>
+      <if test="position != null">
+        position = #{position,jdbcType=VARCHAR},
+      </if>
+      <if test="company != null">
+        company = #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="workplace != null">
+        workPlace = #{workplace,jdbcType=VARCHAR},
+      </if>
+      <if test="education != null">
+        education = #{education,jdbcType=VARCHAR},
+      </if>
+      <if test="salary != null">
+        salary = #{salary,jdbcType=VARCHAR},
+      </if>
+      <if test="inserttime != null">
+        insertTime = #{inserttime,jdbcType=DATE},
+      </if>
+      <if test="label != null">
+        label = #{label,jdbcType=VARCHAR},
+      </if>
+      <if test="truth != null">
+        truth = #{truth,jdbcType=INTEGER},
+      </if>
+      <if test="openid != null">
+        openid = #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where uuid = #{uuid,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="edu.qingtai.pubandcollect.domain.Pubimpression">
+    update pubimpression
+    set position = #{position,jdbcType=VARCHAR},
+      company = #{company,jdbcType=VARCHAR},
+      workPlace = #{workplace,jdbcType=VARCHAR},
+      education = #{education,jdbcType=VARCHAR},
+      salary = #{salary,jdbcType=VARCHAR},
+      insertTime = #{inserttime,jdbcType=DATE},
+      label = #{label,jdbcType=VARCHAR},
+      truth = #{truth,jdbcType=INTEGER},
+      openid = #{openid,jdbcType=VARCHAR},
+      content = #{content,jdbcType=LONGVARCHAR}
+    where uuid = #{uuid,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="edu.qingtai.pubandcollect.domain.Pubimpression">
+    update pubimpression
+    set position = #{position,jdbcType=VARCHAR},
+      company = #{company,jdbcType=VARCHAR},
+      workPlace = #{workplace,jdbcType=VARCHAR},
+      education = #{education,jdbcType=VARCHAR},
+      salary = #{salary,jdbcType=VARCHAR},
+      insertTime = #{inserttime,jdbcType=DATE},
+      label = #{label,jdbcType=VARCHAR},
+      truth = #{truth,jdbcType=INTEGER},
+      openid = #{openid,jdbcType=VARCHAR}
+    where uuid = #{uuid,jdbcType=CHAR}
+  </update>
+</mapper>
