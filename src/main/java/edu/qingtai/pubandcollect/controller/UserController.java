@@ -28,7 +28,11 @@ public class UserController {
         JSONObject userInfo = JSONObject.fromObject(HttpUrlConnection.httpUrlGet(url));
 
         return userService.saveUser(userInfo, userName, userImage);
+    }
 
+    @GetMapping(value = "/yhf")
+    public void test(){
+        userService.test();
     }
 
 

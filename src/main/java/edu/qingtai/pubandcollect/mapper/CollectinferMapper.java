@@ -4,7 +4,9 @@ import edu.qingtai.pubandcollect.domain.Collectinfer;
 import edu.qingtai.pubandcollect.domain.CollectinferExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface CollectinferMapper {
     long countByExample(CollectinferExample example);
 

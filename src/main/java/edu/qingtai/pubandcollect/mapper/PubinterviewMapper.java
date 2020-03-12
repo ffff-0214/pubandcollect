@@ -4,7 +4,9 @@ import edu.qingtai.pubandcollect.domain.Pubinterview;
 import edu.qingtai.pubandcollect.domain.PubinterviewExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface PubinterviewMapper {
     long countByExample(PubinterviewExample example);
 

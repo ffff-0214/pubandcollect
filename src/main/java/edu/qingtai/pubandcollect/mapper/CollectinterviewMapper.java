@@ -4,7 +4,9 @@ import edu.qingtai.pubandcollect.domain.Collectinterview;
 import edu.qingtai.pubandcollect.domain.CollectinterviewExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface CollectinterviewMapper {
     long countByExample(CollectinterviewExample example);
 

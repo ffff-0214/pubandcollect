@@ -4,7 +4,9 @@ import edu.qingtai.pubandcollect.domain.Collectimpression;
 import edu.qingtai.pubandcollect.domain.CollectimpressionExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface CollectimpressionMapper {
     long countByExample(CollectimpressionExample example);
 

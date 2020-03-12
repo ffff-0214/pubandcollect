@@ -7,4 +7,6 @@ public interface UserService {
     String saveUser(JSONObject userInfo, String userName, String userImage);
 
     boolean isExist(String openid);
+
+    void test();
 }

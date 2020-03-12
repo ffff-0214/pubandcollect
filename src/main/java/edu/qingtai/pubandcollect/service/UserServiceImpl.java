@@ -56,4 +56,10 @@ public class UserServiceImpl implements UserService{
     public boolean isExist(String openid){
         return (userMapper.selectByPrimaryKey(openid) != null);
     }
+
+    @Override
+    public void test(){
+        stringRedisTemplate.opsForValue().set("yhf", "19031211368", 1, TimeUnit.DAYS);
+        System.out.println(stringRedisTemplate.opsForValue().get("yhf"));
+    }
 }
