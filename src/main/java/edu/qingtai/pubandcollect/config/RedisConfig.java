@@ -14,7 +14,7 @@ public class RedisConfig {
     public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory){
 
         RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
-        ////参照StringRedisTemplate内部实现指定序列化器
+        //参照StringRedisTemplate内部实现指定序列化器
         redisTemplate.setConnectionFactory(redisConnectionFactory);
         redisTemplate.setKeySerializer(keySerializer());
         redisTemplate.setHashKeySerializer(keySerializer());

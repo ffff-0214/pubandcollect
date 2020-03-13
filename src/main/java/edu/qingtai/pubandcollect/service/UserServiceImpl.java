@@ -2,9 +2,9 @@ package edu.qingtai.pubandcollect.service;
 
 import edu.qingtai.pubandcollect.domain.User;
 import edu.qingtai.pubandcollect.mapper.UserMapper;
+import edu.qingtai.pubandcollect.util.RedisUtils;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
@@ -14,13 +14,13 @@ import java.util.concurrent.TimeUnit;
 public class UserServiceImpl implements UserService{
     private UserMapper userMapper;
 
-    private StringRedisTemplate stringRedisTemplate;
+    private RedisUtils redisUtils;
 
     @Autowired
     public UserServiceImpl(final UserMapper userMapper,
-                           final StringRedisTemplate stringRedisTemplate){
+                           final RedisUtils redisUtils){
         this.userMapper = userMapper;
-        this.stringRedisTemplate=stringRedisTemplate;
+        this.redisUtils=redisUtils;
     }
 
     @Override
@@ -31,11 +31,11 @@ public class UserServiceImpl implements UserService{
         String openid = userInfo.getString("openid");
 
         //看redis
-        if(stringRedisTemplate.opsForValue().get(rd3session).isEmpty()){
-            stringRedisTemplate.opsForValue().set(rd3session, openid, 1, TimeUnit.DAYS);
+        if(redisUtils.get(rd3session).isEmpty()){
+            redisUtils.set(rd3session, openid, 1, TimeUnit.DAYS);
         }
         else{
-            stringRedisTemplate.opsForValue().set(rd3session, openid, 1, TimeUnit.DAYS);
+            redisUtils.set(rd3session, openid, 1, TimeUnit.DAYS);
             return rd3session;
         }
 
@@ -59,7 +59,12 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public void test(){
-        stringRedisTemplate.opsForValue().set("yhf", "19031211368", 1, TimeUnit.DAYS);
-        System.out.println(stringRedisTemplate.opsForValue().get("yhf"));
+        redisUtils.set("yhf", "19031211368", 1, TimeUnit.DAYS);
+        System.out.println(redisUtils.get("yhf"));
+        System.out.println(redisUtils.get("yhf").getClass().toString());
+        if(redisUtils.get("sessionid") != null){
+            System.out.println("yhf");
+        }else{
+        System.out.println(redisUtils.get("sessionid").getClass().toString());}
     }
 }
