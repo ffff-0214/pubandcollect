@@ -21,14 +21,9 @@ public class PubinferController {
     @PostMapping
     public void Publish(@RequestParam("title") String title,
                         @RequestParam("label") String label,
-                        @RequestParam("openid") String openid,
+                        @RequestParam("rd3session") String rd3session,
                         @RequestParam("content") String content,
                         @RequestParam("fileList") List<MultipartFile> fileList){
-        Pubinfer pubinfer = new Pubinfer();
-        pubinfer.setTitle(title);
-        pubinfer.setLabel(label);
-        pubinfer.setOpenid(openid);
-        pubinfer.setContent(content);
-        pubinferService.saveInfer(pubinfer, fileList);
+        pubinferService.saveInfer(title, label, rd3session, content, fileList);
     }
 }

@@ -6,6 +6,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 public interface PubinferService {
-    void saveInfer(Pubinfer pubinfer, List<MultipartFile> fileList);
+    void saveInfer(String title, String label, String rd3session, String content, List<MultipartFile> fileList);
 
 }

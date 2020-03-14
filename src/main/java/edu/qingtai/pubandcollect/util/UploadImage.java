@@ -9,13 +9,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UploadImage {
-    private static String inferLocation = "E:/infer/";
 
     private static String createNum(){
         return String.valueOf((int)(Math.random()*100+1));
     }
 
-    public static String uploadImagesOfInfer(List<MultipartFile> fileList, String openid){
+    public static String uploadImagesOfInfer(String location, List<MultipartFile> fileList, String openid){
         List<String> images = new ArrayList<>();
 
         for(MultipartFile file : fileList){
@@ -23,12 +22,12 @@ public class UploadImage {
                 continue;
             }
             try{
-                String fileName =inferLocation + openid + "_" +createNum() + ".jpg";
+                String fileName =location + openid + "_" +createNum() + ".jpg";
                 //File 类是对文件系统的映射 并不是硬盘上真实的文件
                 File dest = new File(fileName);
                 //判断映射的文件是否真实存在
                 while(dest.exists()){
-                    fileName = inferLocation + openid + "_" +createNum() + ".jpg";
+                    fileName = location + openid + "_" +createNum() + ".jpg";
                     dest = new File(fileName);
                 }
                 //如果存在即可直接操作,  否则需要调用  file.createNewFile() 创建真实文件
