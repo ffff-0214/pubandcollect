@@ -1,6 +1,8 @@
 package edu.qingtai.pubandcollect.service;
 
 import edu.qingtai.pubandcollect.domain.Pubinterview;
+import edu.qingtai.pubandcollect.event.EventDispatcher;
+import edu.qingtai.pubandcollect.event.Interview;
 import edu.qingtai.pubandcollect.mapper.PubinterviewMapper;
 import edu.qingtai.pubandcollect.util.ConstData;
 import edu.qingtai.pubandcollect.util.QuireDate;
@@ -17,12 +19,15 @@ import java.util.UUID;
 public class PubinterviewServiceImpl implements PubinterviewService{
     private PubinterviewMapper pubinterviewMapper;
     private RedisUtils redisUtils;
+    private EventDispatcher eventDispatcher;
 
     @Autowired
     public PubinterviewServiceImpl(final PubinterviewMapper pubinterviewMapper,
-                                   final RedisUtils redisUtils){
+                                   final RedisUtils redisUtils,
+                                   final EventDispatcher eventDispatcher){
         this.pubinterviewMapper = pubinterviewMapper;
         this.redisUtils = redisUtils;
+        this.eventDispatcher = eventDispatcher;
     }
 
     @Override
@@ -35,6 +40,15 @@ public class PubinterviewServiceImpl implements PubinterviewService{
         pubinterview.setImages(Images);
         pubinterview.setInserttime(QuireDate.currentDate());
         pubinterview.setUuid(UUID.randomUUID().toString().replace("-", ""));
-        pubinterviewMapper.insert(pubinterview);
+        if(pubinterviewMapper.insert(pubinterview) >= 0){
+            eventDispatcher.sendInterview(
+                    new Interview(pubinterview.getUuid(),
+                            pubinterview.getTitle(),
+                            pubinterview.getInserttime(),
+                            pubinterview.getFavorite(),
+                            pubinterview.getImages(),
+                            pubinterview.getContent())
+            );
+        }
     }
 }

@@ -62,9 +62,9 @@ public class UserServiceImpl implements UserService{
         redisUtils.set("yhf", "19031211368", 1, TimeUnit.DAYS);
         System.out.println(redisUtils.get("yhf"));
         System.out.println(redisUtils.get("yhf").getClass().toString());
-        if(redisUtils.get("sessionid") != null){
-            System.out.println("yhf");
-        }else{
-        System.out.println(redisUtils.get("sessionid").getClass().toString());}
+//        if(redisUtils.get("sessionid") != null){
+//            System.out.println("yhf");
+//        }else{
+//        System.out.println(redisUtils.get("sessionid").getClass().toString());}
     }
 }

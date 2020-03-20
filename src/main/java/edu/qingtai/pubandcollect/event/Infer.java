@@ -1,8 +1,10 @@
-package edu.qingtai.pubandcollect.domain;
+package edu.qingtai.pubandcollect.event;
 
+import java.io.Serializable;
 import java.sql.Date;
 
-public class Pubinfer {
+
+public class Infer implements Serializable {
     private String uuid;
 
     private String title;
@@ -15,9 +17,17 @@ public class Pubinfer {
 
     private Integer favorite;
 
-    private String openid;
-
     private String content;
+
+    public Infer(String uuid, String title, String images, Date inserttime, String label, Integer favorite, String content) {
+        this.uuid = uuid;
+        this.title = title;
+        this.images = images;
+        this.inserttime = inserttime;
+        this.label = label;
+        this.favorite = favorite;
+        this.content = content;
+    }
 
     public String getUuid() {
         return uuid;
@@ -65,14 +75,6 @@ public class Pubinfer {
 
     public void setFavorite(Integer favorite) {
         this.favorite = favorite;
-    }
-
-    public String getOpenid() {
-        return openid;
-    }
-
-    public void setOpenid(String openid) {
-        this.openid = openid == null ? null : openid.trim();
     }
 
     public String getContent() {

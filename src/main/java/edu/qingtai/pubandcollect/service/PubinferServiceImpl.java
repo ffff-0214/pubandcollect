@@ -1,6 +1,8 @@
 package edu.qingtai.pubandcollect.service;
 
 import edu.qingtai.pubandcollect.domain.Pubinfer;
+import edu.qingtai.pubandcollect.event.EventDispatcher;
+import edu.qingtai.pubandcollect.event.Infer;
 import edu.qingtai.pubandcollect.mapper.PubinferMapper;
 import edu.qingtai.pubandcollect.util.ConstData;
 import edu.qingtai.pubandcollect.util.QuireDate;
@@ -18,12 +20,15 @@ import java.util.UUID;
 public class PubinferServiceImpl implements PubinferService{
     private PubinferMapper pubinferMapper;
     private RedisUtils redisUtils;
+    private EventDispatcher eventDispatcher;
 
     @Autowired
     public PubinferServiceImpl(final PubinferMapper pubinferMapper,
-                               final RedisUtils redisUtils){
+                               final RedisUtils redisUtils,
+                               final EventDispatcher eventDispatcher){
         this.pubinferMapper = pubinferMapper;
         this.redisUtils = redisUtils;
+        this.eventDispatcher = eventDispatcher;
     }
 
     @Override
@@ -37,6 +42,16 @@ public class PubinferServiceImpl implements PubinferService{
         pubinfer.setImages(images);
         pubinfer.setInserttime(QuireDate.currentDate());
         pubinfer.setUuid(UUID.randomUUID().toString().replace("-", ""));
-        pubinferMapper.insert(pubinfer);
+        if(pubinferMapper.insert(pubinfer) >=0 ){
+            eventDispatcher.sendInfer(
+                    new Infer(pubinfer.getUuid(),
+                            pubinfer.getTitle(),
+                            pubinfer.getImages(),
+                            pubinfer.getInserttime(),
+                            pubinfer.getLabel(),
+                            pubinfer.getFavorite(),
+                            pubinfer.getContent())
+            );
+        }
     }
 }

@@ -1,8 +1,10 @@
-package edu.qingtai.pubandcollect.domain;
+package edu.qingtai.pubandcollect.event;
 
+
+import java.io.Serializable;
 import java.sql.Date;
 
-public class Pubinterview {
+public class Interview implements Serializable {
     private String uuid;
 
     private String title;
@@ -13,9 +15,16 @@ public class Pubinterview {
 
     private String images;
 
-    private String openid;
-
     private String content;
+
+    public Interview(String uuid, String title, Date inserttime, Integer favorite, String images, String content) {
+        this.uuid = uuid;
+        this.title = title;
+        this.inserttime = inserttime;
+        this.favorite = favorite;
+        this.images = images;
+        this.content = content;
+    }
 
     public String getUuid() {
         return uuid;
@@ -55,14 +64,6 @@ public class Pubinterview {
 
     public void setImages(String images) {
         this.images = images == null ? null : images.trim();
-    }
-
-    public String getOpenid() {
-        return openid;
-    }
-
-    public void setOpenid(String openid) {
-        this.openid = openid == null ? null : openid.trim();
     }
 
     public String getContent() {

@@ -1,8 +1,10 @@
-package edu.qingtai.pubandcollect.domain;
+package edu.qingtai.pubandcollect.event;
 
+
+import java.io.Serializable;
 import java.sql.Date;
 
-public class Pubimpression {
+public class Impression implements Serializable {
     private String uuid;
 
     private String position;
@@ -21,9 +23,20 @@ public class Pubimpression {
 
     private Integer truth;
 
-    private String openid;
-
     private String content;
+
+    public Impression(String uuid, String position, String company, String workplace, String education, String salary, Date inserttime, String label, Integer truth, String content) {
+        this.uuid = uuid;
+        this.position = position;
+        this.company = company;
+        this.workplace = workplace;
+        this.education = education;
+        this.salary = salary;
+        this.inserttime = inserttime;
+        this.label = label;
+        this.truth = truth;
+        this.content = content;
+    }
 
     public String getUuid() {
         return uuid;
@@ -97,14 +110,6 @@ public class Pubimpression {
         this.truth = truth;
     }
 
-    public String getOpenid() {
-        return openid;
-    }
-
-    public void setOpenid(String openid) {
-        this.openid = openid == null ? null : openid.trim();
-    }
-
     public String getContent() {
         return content;
     }
@@ -113,3 +118,4 @@ public class Pubimpression {
         this.content = content == null ? null : content.trim();
     }
 }
+
