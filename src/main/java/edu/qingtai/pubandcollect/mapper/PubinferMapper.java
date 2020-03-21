@@ -35,4 +35,8 @@ public interface PubinferMapper {
     int updateByPrimaryKeyWithBLOBs(Pubinfer record);
 
     int updateByPrimaryKey(Pubinfer record);
+
+    List<Pubinfer> selectInferByUuidList(@Param("uuidList") List<String> uuidList);
+
+    List<Pubinfer> selectMyPublish(@Param("openid") String openid);
 }

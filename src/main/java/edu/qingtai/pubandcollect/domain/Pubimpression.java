@@ -23,6 +23,8 @@ public class Pubimpression {
 
     private String openid;
 
+    private Integer favorite;
+
     private String content;
 
     public String getUuid() {
@@ -103,6 +105,14 @@ public class Pubimpression {
 
     public void setOpenid(String openid) {
         this.openid = openid == null ? null : openid.trim();
+    }
+
+    public Integer getFavorite() {
+        return favorite;
+    }
+
+    public void setFavorite(Integer favorite) {
+        this.favorite = favorite;
     }
 
     public String getContent() {

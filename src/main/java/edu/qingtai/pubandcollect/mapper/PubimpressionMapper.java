@@ -35,4 +35,8 @@ public interface PubimpressionMapper {
     int updateByPrimaryKeyWithBLOBs(Pubimpression record);
 
     int updateByPrimaryKey(Pubimpression record);
+
+    List<Pubimpression> selectImpressionByUuidList(@Param("uuidList") List<String> uuidList);
+
+    List<Pubimpression> selectMyPublish(@Param("openid") String openid);
 }

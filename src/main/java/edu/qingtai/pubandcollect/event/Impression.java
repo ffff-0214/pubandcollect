@@ -23,9 +23,20 @@ public class Impression implements Serializable {
 
     private Integer truth;
 
+    private Integer favorite;
+
     private String content;
 
-    public Impression(String uuid, String position, String company, String workplace, String education, String salary, Date inserttime, String label, Integer truth, String content) {
+    public Impression(String uuid){
+        this.uuid = uuid;
+    }
+
+    public Impression(String uuid, Integer favorite){
+        this.uuid = uuid;
+        this.favorite = favorite;
+    }
+
+    public Impression(String uuid, String position, String company, String workplace, String education, String salary, Date inserttime, String label, Integer truth, String content, Integer favorite) {
         this.uuid = uuid;
         this.position = position;
         this.company = company;
@@ -36,6 +47,7 @@ public class Impression implements Serializable {
         this.label = label;
         this.truth = truth;
         this.content = content;
+        this.favorite = favorite;
     }
 
     public String getUuid() {

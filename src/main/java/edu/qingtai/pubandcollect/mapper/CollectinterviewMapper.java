@@ -23,4 +23,8 @@ public interface CollectinterviewMapper {
     int updateByExampleSelective(@Param("record") Collectinterview record, @Param("example") CollectinterviewExample example);
 
     int updateByExample(@Param("record") Collectinterview record, @Param("example") CollectinterviewExample example);
+
+    List<String> selectUuidByOpenid(@Param("openid") String openid);
+
+    int deleteByUuid(@Param("uuid") String uuid);
 }

@@ -19,6 +19,15 @@ public class Infer implements Serializable {
 
     private String content;
 
+    public Infer(String uuid){
+        this.uuid = uuid;
+    }
+
+    public Infer(String uuid, Integer favorite){
+        this.uuid = uuid;
+        this.favorite = favorite;
+    }
+
     public Infer(String uuid, String title, String images, Date inserttime, String label, Integer favorite, String content) {
         this.uuid = uuid;
         this.title = title;

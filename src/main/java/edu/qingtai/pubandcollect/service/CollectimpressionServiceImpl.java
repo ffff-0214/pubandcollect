@@ -1,28 +1,60 @@
 package edu.qingtai.pubandcollect.service;
 
 import edu.qingtai.pubandcollect.domain.Collectimpression;
+import edu.qingtai.pubandcollect.domain.Pubimpression;
+import edu.qingtai.pubandcollect.event.EventDispatcher;
+import edu.qingtai.pubandcollect.event.Impression;
 import edu.qingtai.pubandcollect.mapper.CollectimpressionMapper;
+import edu.qingtai.pubandcollect.mapper.PubimpressionMapper;
 import edu.qingtai.pubandcollect.util.RedisUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CollectimpressionServiceImpl implements CollectimpressionService{
     private CollectimpressionMapper collectimpressionMapper;
+    private PubimpressionMapper pubimpressionMapper;
     private RedisUtils redisUtils;
+    private EventDispatcher eventDispatcher;
 
     @Autowired
     public CollectimpressionServiceImpl(final CollectimpressionMapper collectimpressionMapper,
+                                       final PubimpressionMapper pubimpressionMapper,
+                                       final EventDispatcher eventDispatcher,
                                        final RedisUtils redisUtils){
         this.collectimpressionMapper = collectimpressionMapper;
+        this.pubimpressionMapper = pubimpressionMapper;
+        this.eventDispatcher = eventDispatcher;
         this.redisUtils = redisUtils;
     }
 
     @Override
-    public void collectImpression(String uuid, String rd3session){
+    public void saveCollectImpression(String uuid, String rd3session){
         Collectimpression collectimpression = new Collectimpression();
         collectimpression.setOpenid(redisUtils.get(rd3session));
         collectimpression.setUuid(uuid);
         collectimpressionMapper.insert(collectimpression);
+        Pubimpression pubimpression = pubimpressionMapper.selectByPrimaryKey(uuid);
+        pubimpression.setFavorite(pubimpression.getFavorite() + 1);
+        pubimpressionMapper.updateByPrimaryKey(pubimpression);
+        eventDispatcher.sendImpression(new Impression(uuid, pubimpression.getFavorite()));
+    }
+
+    @Override
+    public List<Pubimpression> queryImpressionFromOpenid(String rd3session){
+        return pubimpressionMapper.selectImpressionByUuidList(
+                collectimpressionMapper.selectUuidByOpenid(redisUtils.get(rd3session))
+        );
+    }
+
+    @Override
+    public void deleteCollectImpression(String uuid, String rd3session){
+        collectimpressionMapper.deleteByPrimaryKey(uuid, redisUtils.get(rd3session));
+        Pubimpression pubimpression = pubimpressionMapper.selectByPrimaryKey(uuid);
+        pubimpression.setFavorite(pubimpression.getFavorite() - 1);
+        pubimpressionMapper.updateByPrimaryKey(pubimpression);
+        eventDispatcher.sendImpression(new Impression(uuid, pubimpression.getFavorite()));
     }
 }

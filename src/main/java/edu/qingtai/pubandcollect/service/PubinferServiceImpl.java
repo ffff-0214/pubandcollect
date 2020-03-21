@@ -3,6 +3,7 @@ package edu.qingtai.pubandcollect.service;
 import edu.qingtai.pubandcollect.domain.Pubinfer;
 import edu.qingtai.pubandcollect.event.EventDispatcher;
 import edu.qingtai.pubandcollect.event.Infer;
+import edu.qingtai.pubandcollect.mapper.CollectinferMapper;
 import edu.qingtai.pubandcollect.mapper.PubinferMapper;
 import edu.qingtai.pubandcollect.util.ConstData;
 import edu.qingtai.pubandcollect.util.QuireDate;
@@ -19,16 +20,19 @@ import java.util.UUID;
 @Service
 public class PubinferServiceImpl implements PubinferService{
     private PubinferMapper pubinferMapper;
+    private CollectinferMapper collectinferMapper;
     private RedisUtils redisUtils;
     private EventDispatcher eventDispatcher;
 
     @Autowired
     public PubinferServiceImpl(final PubinferMapper pubinferMapper,
                                final RedisUtils redisUtils,
-                               final EventDispatcher eventDispatcher){
+                               final EventDispatcher eventDispatcher,
+                               final CollectinferMapper collectinferMapper){
         this.pubinferMapper = pubinferMapper;
         this.redisUtils = redisUtils;
         this.eventDispatcher = eventDispatcher;
+        this.collectinferMapper = collectinferMapper;
     }
 
     @Override
@@ -53,5 +57,17 @@ public class PubinferServiceImpl implements PubinferService{
                             pubinfer.getContent())
             );
         }
+    }
+
+    @Override
+    public List<Pubinfer> queryMyPublish(String rd3session){
+        return pubinferMapper.selectMyPublish(redisUtils.get(rd3session));
+    }
+
+    @Override
+    public void deleteInfer(String uuid){
+        pubinferMapper.deleteByPrimaryKey(uuid);
+        collectinferMapper.deleteByUuid(uuid);
+        eventDispatcher.sendInfer(new Infer(uuid));
     }
 }

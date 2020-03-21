@@ -284,4 +284,297 @@
       openid = #{openid,jdbcType=VARCHAR}
     where uuid = #{uuid,jdbcType=CHAR}
   </update>
+  <resultMap id="BaseResultMap" type="edu.qingtai.pubandcollect.domain.Pubinterview">
+    <id column="uuid" jdbcType="CHAR" property="uuid" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="insertTime" jdbcType="DATE" property="inserttime" />
+    <result column="favorite" jdbcType="INTEGER" property="favorite" />
+    <result column="images" jdbcType="VARCHAR" property="images" />
+    <result column="openid" jdbcType="VARCHAR" property="openid" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="edu.qingtai.pubandcollect.domain.Pubinterview">
+    <result column="content" jdbcType="LONGVARCHAR" property="content" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    uuid, title, insertTime, favorite, images, openid
+  </sql>
+  <sql id="Blob_Column_List">
+    content
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="edu.qingtai.pubandcollect.domain.PubinterviewExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from pubinterview
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="edu.qingtai.pubandcollect.domain.PubinterviewExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from pubinterview
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from pubinterview
+    where uuid = #{uuid,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from pubinterview
+    where uuid = #{uuid,jdbcType=CHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="edu.qingtai.pubandcollect.domain.PubinterviewExample">
+    delete from pubinterview
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="edu.qingtai.pubandcollect.domain.Pubinterview">
+    insert into pubinterview (uuid, title, insertTime, 
+      favorite, images, openid, 
+      content)
+    values (#{uuid,jdbcType=CHAR}, #{title,jdbcType=VARCHAR}, #{inserttime,jdbcType=DATE}, 
+      #{favorite,jdbcType=INTEGER}, #{images,jdbcType=VARCHAR}, #{openid,jdbcType=VARCHAR}, 
+      #{content,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="edu.qingtai.pubandcollect.domain.Pubinterview">
+    insert into pubinterview
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="uuid != null">
+        uuid,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="inserttime != null">
+        insertTime,
+      </if>
+      <if test="favorite != null">
+        favorite,
+      </if>
+      <if test="images != null">
+        images,
+      </if>
+      <if test="openid != null">
+        openid,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="uuid != null">
+        #{uuid,jdbcType=CHAR},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="inserttime != null">
+        #{inserttime,jdbcType=DATE},
+      </if>
+      <if test="favorite != null">
+        #{favorite,jdbcType=INTEGER},
+      </if>
+      <if test="images != null">
+        #{images,jdbcType=VARCHAR},
+      </if>
+      <if test="openid != null">
+        #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="edu.qingtai.pubandcollect.domain.PubinterviewExample" resultType="java.lang.Long">
+    select count(*) from pubinterview
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update pubinterview
+    <set>
+      <if test="record.uuid != null">
+        uuid = #{record.uuid,jdbcType=CHAR},
+      </if>
+      <if test="record.title != null">
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.inserttime != null">
+        insertTime = #{record.inserttime,jdbcType=DATE},
+      </if>
+      <if test="record.favorite != null">
+        favorite = #{record.favorite,jdbcType=INTEGER},
+      </if>
+      <if test="record.images != null">
+        images = #{record.images,jdbcType=VARCHAR},
+      </if>
+      <if test="record.openid != null">
+        openid = #{record.openid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.content != null">
+        content = #{record.content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update pubinterview
+    set uuid = #{record.uuid,jdbcType=CHAR},
+      title = #{record.title,jdbcType=VARCHAR},
+      insertTime = #{record.inserttime,jdbcType=DATE},
+      favorite = #{record.favorite,jdbcType=INTEGER},
+      images = #{record.images,jdbcType=VARCHAR},
+      openid = #{record.openid,jdbcType=VARCHAR},
+      content = #{record.content,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update pubinterview
+    set uuid = #{record.uuid,jdbcType=CHAR},
+      title = #{record.title,jdbcType=VARCHAR},
+      insertTime = #{record.inserttime,jdbcType=DATE},
+      favorite = #{record.favorite,jdbcType=INTEGER},
+      images = #{record.images,jdbcType=VARCHAR},
+      openid = #{record.openid,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="edu.qingtai.pubandcollect.domain.Pubinterview">
+    update pubinterview
+    <set>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="inserttime != null">
+        insertTime = #{inserttime,jdbcType=DATE},
+      </if>
+      <if test="favorite != null">
+        favorite = #{favorite,jdbcType=INTEGER},
+      </if>
+      <if test="images != null">
+        images = #{images,jdbcType=VARCHAR},
+      </if>
+      <if test="openid != null">
+        openid = #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where uuid = #{uuid,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="edu.qingtai.pubandcollect.domain.Pubinterview">
+    update pubinterview
+    set title = #{title,jdbcType=VARCHAR},
+      insertTime = #{inserttime,jdbcType=DATE},
+      favorite = #{favorite,jdbcType=INTEGER},
+      images = #{images,jdbcType=VARCHAR},
+      openid = #{openid,jdbcType=VARCHAR},
+      content = #{content,jdbcType=LONGVARCHAR}
+    where uuid = #{uuid,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="edu.qingtai.pubandcollect.domain.Pubinterview">
+    update pubinterview
+    set title = #{title,jdbcType=VARCHAR},
+      insertTime = #{inserttime,jdbcType=DATE},
+      favorite = #{favorite,jdbcType=INTEGER},
+      images = #{images,jdbcType=VARCHAR},
+      openid = #{openid,jdbcType=VARCHAR}
+    where uuid = #{uuid,jdbcType=CHAR}
+  </update>
+  <select id="selectInterviewByUuidList" resultType="Pubinterview">
+    select * from pubinterview where uuid in
+    <foreach collection="uuidList" item="uuid" open="(" close=")" separator=",">
+      #{uuid}
+    </foreach>
+  </select>
+
+  <select id="selectMyPublish" resultType="Pubinterview">
+    select * from pubinterview where openid = #{openid}
+  </select>
 </mapper>

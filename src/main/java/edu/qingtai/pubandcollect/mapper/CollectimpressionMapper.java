@@ -23,4 +23,8 @@ public interface CollectimpressionMapper {
     int updateByExampleSelective(@Param("record") Collectimpression record, @Param("example") CollectimpressionExample example);
 
     int updateByExample(@Param("record") Collectimpression record, @Param("example") CollectimpressionExample example);
+
+    List<String> selectUuidByOpenid(@Param("openid") String openid);
+
+    int deleteByUuid(@Param("uuid") String uuid);
 }

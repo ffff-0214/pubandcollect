@@ -811,6 +811,66 @@ public class PubimpressionExample {
             addCriterion("openid not between", value1, value2, "openid");
             return (Criteria) this;
         }
+
+        public Criteria andFavoriteIsNull() {
+            addCriterion("favorite is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFavoriteIsNotNull() {
+            addCriterion("favorite is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFavoriteEqualTo(Integer value) {
+            addCriterion("favorite =", value, "favorite");
+            return (Criteria) this;
+        }
+
+        public Criteria andFavoriteNotEqualTo(Integer value) {
+            addCriterion("favorite <>", value, "favorite");
+            return (Criteria) this;
+        }
+
+        public Criteria andFavoriteGreaterThan(Integer value) {
+            addCriterion("favorite >", value, "favorite");
+            return (Criteria) this;
+        }
+
+        public Criteria andFavoriteGreaterThanOrEqualTo(Integer value) {
+            addCriterion("favorite >=", value, "favorite");
+            return (Criteria) this;
+        }
+
+        public Criteria andFavoriteLessThan(Integer value) {
+            addCriterion("favorite <", value, "favorite");
+            return (Criteria) this;
+        }
+
+        public Criteria andFavoriteLessThanOrEqualTo(Integer value) {
+            addCriterion("favorite <=", value, "favorite");
+            return (Criteria) this;
+        }
+
+        public Criteria andFavoriteIn(List<Integer> values) {
+            addCriterion("favorite in", values, "favorite");
+            return (Criteria) this;
+        }
+
+        public Criteria andFavoriteNotIn(List<Integer> values) {
+            addCriterion("favorite not in", values, "favorite");
+            return (Criteria) this;
+        }
+
+        public Criteria andFavoriteBetween(Integer value1, Integer value2) {
+            addCriterion("favorite between", value1, value2, "favorite");
+            return (Criteria) this;
+        }
+
+        public Criteria andFavoriteNotBetween(Integer value1, Integer value2) {
+            addCriterion("favorite not between", value1, value2, "favorite");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

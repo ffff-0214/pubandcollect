@@ -23,4 +23,8 @@ public interface CollectinferMapper {
     int updateByExampleSelective(@Param("record") Collectinfer record, @Param("example") CollectinferExample example);
 
     int updateByExample(@Param("record") Collectinfer record, @Param("example") CollectinferExample example);
+
+    List<String> selectUuidByOpenid(@Param("openid") String openid);
+
+    int deleteByUuid(@Param("uuid") String uuid);
 }

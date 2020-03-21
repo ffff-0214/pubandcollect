@@ -35,4 +35,8 @@ public interface PubinterviewMapper {
     int updateByPrimaryKeyWithBLOBs(Pubinterview record);
 
     int updateByPrimaryKey(Pubinterview record);
+
+    List<Pubinterview> selectInterviewByUuidList(@Param("uuidList") List<String> uuidList);
+
+    List<Pubinterview> selectMyPublish(@Param("openid") String openid);
 }

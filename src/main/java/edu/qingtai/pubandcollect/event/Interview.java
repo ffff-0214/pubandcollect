@@ -17,6 +17,15 @@ public class Interview implements Serializable {
 
     private String content;
 
+    public Interview(String uuid){
+        this.uuid = uuid;
+    }
+
+    public Interview(String uuid, Integer favorite){
+        this.uuid = uuid;
+        this.favorite = favorite;
+    }
+
     public Interview(String uuid, String title, Date inserttime, Integer favorite, String images, String content) {
         this.uuid = uuid;
         this.title = title;
