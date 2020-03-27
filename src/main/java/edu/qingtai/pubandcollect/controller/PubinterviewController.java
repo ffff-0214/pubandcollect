@@ -1,11 +1,9 @@
 package edu.qingtai.pubandcollect.controller;
 
+import edu.qingtai.pubandcollect.domain.Pubinterview;
 import edu.qingtai.pubandcollect.service.PubinterviewService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -24,7 +22,24 @@ public class PubinterviewController {
     public void Publish(@RequestParam("title") String title,
                         @RequestParam("rd3session") String rd3session,
                         @RequestParam("content") String content,
+                        @RequestParam("username") String username,
+                        @RequestParam("userimage") String userimage,
                         @RequestParam("fileList") List<MultipartFile> fileList){
-        pubinterviewService.saveInterview(title,rd3session,content,fileList);
+        pubinterviewService.saveInterview(title, rd3session, content, username, userimage, fileList);
+    }
+
+    @GetMapping(value = "/myself")
+    public List<Pubinterview> queryMyPublish(@RequestParam("rd3session") String rd3session){
+        return pubinterviewService.queryMyPublish(rd3session);
+    }
+
+    @DeleteMapping
+    public void deleteInterview(@RequestParam("uuid") String uuid){
+        pubinterviewService.deleteInterview(uuid);
+    }
+
+    @GetMapping
+    public List<Pubinterview> queryInterview(@RequestParam("pageIndex") int pageIndex){
+        return pubinterviewService.queryInterviews(pageIndex);
     }
 }

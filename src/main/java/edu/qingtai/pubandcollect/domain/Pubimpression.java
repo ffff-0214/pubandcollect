@@ -25,6 +25,10 @@ public class Pubimpression {
 
     private Integer favorite;
 
+    private String username;
+
+    private String userimage;
+
     private String content;
 
     public String getUuid() {
@@ -113,6 +117,22 @@ public class Pubimpression {
 
     public void setFavorite(Integer favorite) {
         this.favorite = favorite;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username == null ? null : username.trim();
+    }
+
+    public String getUserimage() {
+        return userimage;
+    }
+
+    public void setUserimage(String userimage) {
+        this.userimage = userimage == null ? null : userimage.trim();
     }
 
     public String getContent() {

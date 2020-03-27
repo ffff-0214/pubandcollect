@@ -36,6 +36,8 @@ public interface PubimpressionMapper {
 
     int updateByPrimaryKey(Pubimpression record);
 
+    List<String> selectUuidByPageIndex(@Param("startIndex") int startIndex, @Param("pageSize")int pageSize);
+
     List<Pubimpression> selectImpressionByUuidList(@Param("uuidList") List<String> uuidList);
 
     List<Pubimpression> selectMyPublish(@Param("openid") String openid);

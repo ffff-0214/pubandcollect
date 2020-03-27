@@ -36,6 +36,8 @@ public interface PubinterviewMapper {
 
     int updateByPrimaryKey(Pubinterview record);
 
+    List<String> selectUuidByPageIndex(@Param("startIndex") int startIndex, @Param("pageSize")int pageSize);
+
     List<Pubinterview> selectInterviewByUuidList(@Param("uuidList") List<String> uuidList);
 
     List<Pubinterview> selectMyPublish(@Param("openid") String openid);

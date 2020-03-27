@@ -15,6 +15,10 @@ public class Pubinterview {
 
     private String openid;
 
+    private String username;
+
+    private String userimage;
+
     private String content;
 
     public String getUuid() {
@@ -63,6 +67,22 @@ public class Pubinterview {
 
     public void setOpenid(String openid) {
         this.openid = openid == null ? null : openid.trim();
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username == null ? null : username.trim();
+    }
+
+    public String getUserimage() {
+        return userimage;
+    }
+
+    public void setUserimage(String userimage) {
+        this.userimage = userimage == null ? null : userimage.trim();
     }
 
     public String getContent() {

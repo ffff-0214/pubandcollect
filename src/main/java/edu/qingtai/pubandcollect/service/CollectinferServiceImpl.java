@@ -2,8 +2,6 @@ package edu.qingtai.pubandcollect.service;
 
 import edu.qingtai.pubandcollect.domain.Collectinfer;
 import edu.qingtai.pubandcollect.domain.Pubinfer;
-import edu.qingtai.pubandcollect.event.EventDispatcher;
-import edu.qingtai.pubandcollect.event.Infer;
 import edu.qingtai.pubandcollect.mapper.CollectinferMapper;
 import edu.qingtai.pubandcollect.mapper.PubinferMapper;
 import edu.qingtai.pubandcollect.util.RedisUtils;
@@ -16,18 +14,15 @@ import java.util.List;
 public class CollectinferServiceImpl implements CollectinferService{
     private CollectinferMapper collectinferMapper;
     private PubinferMapper pubinferMapper;
-    private EventDispatcher eventDispatcher;
     private RedisUtils redisUtils;
 
     @Autowired
     public CollectinferServiceImpl(final CollectinferMapper collectinferMapper,
                                    final PubinferMapper pubinferMapper,
-                                   final RedisUtils redisUtils,
-                                   final EventDispatcher eventDispatcher){
+                                   final RedisUtils redisUtils){
         this.collectinferMapper = collectinferMapper;
         this.pubinferMapper = pubinferMapper;
         this.redisUtils = redisUtils;
-        this.eventDispatcher = eventDispatcher;
     }
 
     @Override
@@ -39,7 +34,6 @@ public class CollectinferServiceImpl implements CollectinferService{
         Pubinfer pubinfer = pubinferMapper.selectByPrimaryKey(uuid);
         pubinfer.setFavorite(pubinfer.getFavorite() + 1);
         pubinferMapper.updateByPrimaryKey(pubinfer);
-        eventDispatcher.sendInfer(new Infer(uuid, pubinfer.getFavorite()));
     }
 
     @Override

@@ -1,10 +1,9 @@
 package edu.qingtai.pubandcollect.service;
 
 import edu.qingtai.pubandcollect.domain.Pubimpression;
-import edu.qingtai.pubandcollect.event.EventDispatcher;
-import edu.qingtai.pubandcollect.event.Impression;
 import edu.qingtai.pubandcollect.mapper.CollectimpressionMapper;
 import edu.qingtai.pubandcollect.mapper.PubimpressionMapper;
+import edu.qingtai.pubandcollect.util.ConstData;
 import edu.qingtai.pubandcollect.util.QuireDate;
 import edu.qingtai.pubandcollect.util.RedisUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,22 +17,19 @@ public class PubimpressionServiceImpl implements PubimpressionService{
     private PubimpressionMapper pubimpressionMapper;
     private CollectimpressionMapper collectimpressionMapper;
     private RedisUtils redisUtils;
-    private EventDispatcher eventDispatcher;
 
     @Autowired
     public PubimpressionServiceImpl(final PubimpressionMapper pubimpressionMapper,
                                     final RedisUtils redisUtils,
-                                    final CollectimpressionMapper collectimpressionMapper,
-                                    final EventDispatcher eventDispatcher){
+                                    final CollectimpressionMapper collectimpressionMapper){
         this.pubimpressionMapper = pubimpressionMapper;
         this.redisUtils = redisUtils;
-        this.eventDispatcher = eventDispatcher;
         this.collectimpressionMapper = collectimpressionMapper;
     }
 
     @Override
     public void saveImpression(String position, String company, String workPlace, String education, String salary,
-                               String label, String content, String rd3session){
+                               String label, String content, String rd3session, String username, String userimage){
         Pubimpression pubimpression = new Pubimpression();
         pubimpression.setPosition(position);
         pubimpression.setCompany(company);
@@ -45,21 +41,10 @@ public class PubimpressionServiceImpl implements PubimpressionService{
         pubimpression.setOpenid(redisUtils.get(rd3session));
         pubimpression.setInserttime(QuireDate.currentDate());
         pubimpression.setUuid(UUID.randomUUID().toString().replace("-", ""));
-        if(pubimpressionMapper.insert(pubimpression) >= 0){
-            eventDispatcher.sendImpression(
-                    new Impression(pubimpression.getUuid(),
-                            pubimpression.getPosition(),
-                            pubimpression.getCompany(),
-                            pubimpression.getWorkplace(),
-                            pubimpression.getEducation(),
-                            pubimpression.getSalary(),
-                            pubimpression.getInserttime(),
-                            pubimpression.getLabel(),
-                            pubimpression.getTruth(),
-                            pubimpression.getContent(),
-                            pubimpression.getFavorite())
-            );
-        }
+        pubimpression.setUsername(username);
+        pubimpression.setUserimage(userimage);
+        pubimpressionMapper.insert(pubimpression);
+
     }
 
     @Override
@@ -71,6 +56,16 @@ public class PubimpressionServiceImpl implements PubimpressionService{
     public void deleteImpression(String uuid){
         pubimpressionMapper.deleteByPrimaryKey(uuid);
         collectimpressionMapper.deleteByUuid(uuid);
-        eventDispatcher.sendImpression(new Impression(uuid));
+    }
+
+    @Override
+    public List<Pubimpression> queryImpressions(int pageIndex){
+        //前端的页面从1开始
+        int startIndex = (pageIndex - 1) * ConstData.pageSize;
+        List<String> uuidList = pubimpressionMapper.selectUuidByPageIndex(startIndex, ConstData.pageSize);
+        if(uuidList.isEmpty()){
+            return null;
+        }
+        return pubimpressionMapper.selectImpressionByUuidList(uuidList);
     }
 }

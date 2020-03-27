@@ -2,8 +2,6 @@ package edu.qingtai.pubandcollect.service;
 
 import edu.qingtai.pubandcollect.domain.Collectinterview;
 import edu.qingtai.pubandcollect.domain.Pubinterview;
-import edu.qingtai.pubandcollect.event.EventDispatcher;
-import edu.qingtai.pubandcollect.event.Interview;
 import edu.qingtai.pubandcollect.mapper.CollectinterviewMapper;
 import edu.qingtai.pubandcollect.mapper.PubinterviewMapper;
 import edu.qingtai.pubandcollect.util.RedisUtils;
@@ -17,16 +15,13 @@ public class CollectinterviewServiceImpl implements CollectinterviewService{
     private CollectinterviewMapper collectinterviewMapper;
     private PubinterviewMapper pubinterviewMapper;
     private RedisUtils redisUtils;
-    private EventDispatcher eventDispatcher;
 
     @Autowired
     public CollectinterviewServiceImpl(final CollectinterviewMapper collectinterviewMapper,
                                    final PubinterviewMapper pubinterviewMapper,
-                                   final EventDispatcher eventDispatcher,
                                    final RedisUtils redisUtils){
         this.collectinterviewMapper = collectinterviewMapper;
         this.pubinterviewMapper = pubinterviewMapper;
-        this.eventDispatcher = eventDispatcher;
         this.redisUtils = redisUtils;
     }
 
@@ -46,7 +41,6 @@ public class CollectinterviewServiceImpl implements CollectinterviewService{
         Pubinterview pubinterview = pubinterviewMapper.selectByPrimaryKey(uuid);
         pubinterview.setFavorite(pubinterview.getFavorite() + 1);
         pubinterviewMapper.updateByPrimaryKey(pubinterview);
-        eventDispatcher.sendInterview(new Interview(uuid, pubinterview.getFavorite()));
     }
 
     @Override
@@ -55,6 +49,5 @@ public class CollectinterviewServiceImpl implements CollectinterviewService{
         Pubinterview pubinterview = pubinterviewMapper.selectByPrimaryKey(uuid);
         pubinterview.setFavorite(pubinterview.getFavorite() - 1);
         pubinterviewMapper.updateByPrimaryKey(pubinterview);
-        eventDispatcher.sendInterview(new Interview(uuid, pubinterview.getFavorite()));
     }
 }

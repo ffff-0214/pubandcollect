@@ -36,6 +36,8 @@ public interface PubinferMapper {
 
     int updateByPrimaryKey(Pubinfer record);
 
+    List<String> selectUuidByPageIndex(@Param("startIndex") int startIndex, @Param("pageSize")int pageSize);
+
     List<Pubinfer> selectInferByUuidList(@Param("uuidList") List<String> uuidList);
 
     List<Pubinfer> selectMyPublish(@Param("openid") String openid);

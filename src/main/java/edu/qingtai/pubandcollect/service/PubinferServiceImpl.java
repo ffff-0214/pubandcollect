@@ -1,8 +1,6 @@
 package edu.qingtai.pubandcollect.service;
 
 import edu.qingtai.pubandcollect.domain.Pubinfer;
-import edu.qingtai.pubandcollect.event.EventDispatcher;
-import edu.qingtai.pubandcollect.event.Infer;
 import edu.qingtai.pubandcollect.mapper.CollectinferMapper;
 import edu.qingtai.pubandcollect.mapper.PubinferMapper;
 import edu.qingtai.pubandcollect.util.ConstData;
@@ -10,7 +8,6 @@ import edu.qingtai.pubandcollect.util.QuireDate;
 import edu.qingtai.pubandcollect.util.RedisUtils;
 import edu.qingtai.pubandcollect.util.UploadImage;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.cache.CacheProperties;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -22,21 +19,19 @@ public class PubinferServiceImpl implements PubinferService{
     private PubinferMapper pubinferMapper;
     private CollectinferMapper collectinferMapper;
     private RedisUtils redisUtils;
-    private EventDispatcher eventDispatcher;
 
     @Autowired
     public PubinferServiceImpl(final PubinferMapper pubinferMapper,
                                final RedisUtils redisUtils,
-                               final EventDispatcher eventDispatcher,
                                final CollectinferMapper collectinferMapper){
         this.pubinferMapper = pubinferMapper;
         this.redisUtils = redisUtils;
-        this.eventDispatcher = eventDispatcher;
         this.collectinferMapper = collectinferMapper;
     }
 
     @Override
-    public void saveInfer(String title, String label, String rd3session, String content, List<MultipartFile> fileList){
+    public void saveInfer(String title, String label, String rd3session, String content,
+                          String username, String userimage, List<MultipartFile> fileList){
         Pubinfer pubinfer = new Pubinfer();
         pubinfer.setTitle(title);
         pubinfer.setLabel(label);
@@ -46,17 +41,9 @@ public class PubinferServiceImpl implements PubinferService{
         pubinfer.setImages(images);
         pubinfer.setInserttime(QuireDate.currentDate());
         pubinfer.setUuid(UUID.randomUUID().toString().replace("-", ""));
-        if(pubinferMapper.insert(pubinfer) >=0 ){
-            eventDispatcher.sendInfer(
-                    new Infer(pubinfer.getUuid(),
-                            pubinfer.getTitle(),
-                            pubinfer.getImages(),
-                            pubinfer.getInserttime(),
-                            pubinfer.getLabel(),
-                            pubinfer.getFavorite(),
-                            pubinfer.getContent())
-            );
-        }
+        pubinfer.setUsername(username);
+        pubinfer.setUserimage(userimage);
+        pubinferMapper.insert(pubinfer);
     }
 
     @Override
@@ -68,6 +55,15 @@ public class PubinferServiceImpl implements PubinferService{
     public void deleteInfer(String uuid){
         pubinferMapper.deleteByPrimaryKey(uuid);
         collectinferMapper.deleteByUuid(uuid);
-        eventDispatcher.sendInfer(new Infer(uuid));
+    }
+
+    @Override
+    public List<Pubinfer> queryInfers(int pageIndex){
+        int startIndex = (pageIndex - 1) * ConstData.pageSize;
+        List<String> uuidList = pubinferMapper.selectUuidByPageIndex(startIndex, ConstData.pageSize);
+        if(uuidList.isEmpty()){
+            return null;
+        }
+        return pubinferMapper.selectInferByUuidList(uuidList);
     }
 }

@@ -3,6 +3,7 @@ package edu.qingtai.pubandcollect.config;
 import edu.qingtai.pubandcollect.interceptor.VerifyInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -16,7 +17,11 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry){
         registry.addInterceptor(getVerifyInterceptor())
-                .addPathPatterns("/**")
-                .excludePathPatterns("/user/login").excludePathPatterns("/user/yhf");
+                .addPathPatterns("/**");
+    }
+
+    @Override
+    public void addCorsMappings(CorsRegistry corsRegistry){
+        corsRegistry.addMapping("/**");
     }
 }

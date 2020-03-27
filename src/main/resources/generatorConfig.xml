@@ -46,7 +46,6 @@
         </javaClientGenerator>
 
         <!-- 指定数据库表tableName -->
-        <table schema="" tableName="user"> </table>
         <table schema="" tableName="pubinfer"> </table>
         <table schema="" tableName="collectinfer"> </table>
         <table schema="" tableName="pubinterview"> </table>
