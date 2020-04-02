@@ -33,7 +33,8 @@ public class UploadImage {
                 //如果存在即可直接操作,  否则需要调用  file.createNewFile() 创建真实文件
                 //但是以上方式只会适用创建文件本身,不包括父文件的创建(如果父文件不存在)
                 file.transferTo(dest);
-                images.add(fileName);
+//                images.add(fileName);
+                images.add(fileName.replace(location, "http://47.95.39.132:80/"+ location.split("/")[1] +"/"));
             }catch (IllegalArgumentException | IOException e){
                 e.printStackTrace();
                 return "";
@@ -43,10 +44,15 @@ public class UploadImage {
     }
 
     public static void main(String[] args) {
-        List<String> a = new ArrayList<>();
-//        a.add("1");
-        for (String i: a) {
-            System.out.println(i);
-        }
+//        List<String> a = new ArrayList<>();
+////        a.add("1");
+//        for (String i: a) {
+//            System.out.println(i);
+//        }
+        String location = ConstData.interviewLocation;
+        String fileName = location + "1.jpg";
+        String images = fileName.replace(location, "http://47.95.39.132:80/"+ location.split("/")[3] +"/");
+        System.out.println(fileName);
+        System.out.println(images);
     }
 }

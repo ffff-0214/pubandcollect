@@ -343,72 +343,72 @@ public class PubimpressionExample {
         }
 
         public Criteria andWorkplaceIsNull() {
-            addCriterion("workPlace is null");
+            addCriterion("workplace is null");
             return (Criteria) this;
         }
 
         public Criteria andWorkplaceIsNotNull() {
-            addCriterion("workPlace is not null");
+            addCriterion("workplace is not null");
             return (Criteria) this;
         }
 
         public Criteria andWorkplaceEqualTo(String value) {
-            addCriterion("workPlace =", value, "workplace");
+            addCriterion("workplace =", value, "workplace");
             return (Criteria) this;
         }
 
         public Criteria andWorkplaceNotEqualTo(String value) {
-            addCriterion("workPlace <>", value, "workplace");
+            addCriterion("workplace <>", value, "workplace");
             return (Criteria) this;
         }
 
         public Criteria andWorkplaceGreaterThan(String value) {
-            addCriterion("workPlace >", value, "workplace");
+            addCriterion("workplace >", value, "workplace");
             return (Criteria) this;
         }
 
         public Criteria andWorkplaceGreaterThanOrEqualTo(String value) {
-            addCriterion("workPlace >=", value, "workplace");
+            addCriterion("workplace >=", value, "workplace");
             return (Criteria) this;
         }
 
         public Criteria andWorkplaceLessThan(String value) {
-            addCriterion("workPlace <", value, "workplace");
+            addCriterion("workplace <", value, "workplace");
             return (Criteria) this;
         }
 
         public Criteria andWorkplaceLessThanOrEqualTo(String value) {
-            addCriterion("workPlace <=", value, "workplace");
+            addCriterion("workplace <=", value, "workplace");
             return (Criteria) this;
         }
 
         public Criteria andWorkplaceLike(String value) {
-            addCriterion("workPlace like", value, "workplace");
+            addCriterion("workplace like", value, "workplace");
             return (Criteria) this;
         }
 
         public Criteria andWorkplaceNotLike(String value) {
-            addCriterion("workPlace not like", value, "workplace");
+            addCriterion("workplace not like", value, "workplace");
             return (Criteria) this;
         }
 
         public Criteria andWorkplaceIn(List<String> values) {
-            addCriterion("workPlace in", values, "workplace");
+            addCriterion("workplace in", values, "workplace");
             return (Criteria) this;
         }
 
         public Criteria andWorkplaceNotIn(List<String> values) {
-            addCriterion("workPlace not in", values, "workplace");
+            addCriterion("workplace not in", values, "workplace");
             return (Criteria) this;
         }
 
         public Criteria andWorkplaceBetween(String value1, String value2) {
-            addCriterion("workPlace between", value1, value2, "workplace");
+            addCriterion("workplace between", value1, value2, "workplace");
             return (Criteria) this;
         }
 
         public Criteria andWorkplaceNotBetween(String value1, String value2) {
-            addCriterion("workPlace not between", value1, value2, "workplace");
+            addCriterion("workplace not between", value1, value2, "workplace");
             return (Criteria) this;
         }
 
@@ -553,62 +553,62 @@ public class PubimpressionExample {
         }
 
         public Criteria andInserttimeIsNull() {
-            addCriterion("insertTime is null");
+            addCriterion("inserttime is null");
             return (Criteria) this;
         }
 
         public Criteria andInserttimeIsNotNull() {
-            addCriterion("insertTime is not null");
+            addCriterion("inserttime is not null");
             return (Criteria) this;
         }
 
         public Criteria andInserttimeEqualTo(Date value) {
-            addCriterionForJDBCDate("insertTime =", value, "inserttime");
+            addCriterionForJDBCDate("inserttime =", value, "inserttime");
             return (Criteria) this;
         }
 
         public Criteria andInserttimeNotEqualTo(Date value) {
-            addCriterionForJDBCDate("insertTime <>", value, "inserttime");
+            addCriterionForJDBCDate("inserttime <>", value, "inserttime");
             return (Criteria) this;
         }
 
         public Criteria andInserttimeGreaterThan(Date value) {
-            addCriterionForJDBCDate("insertTime >", value, "inserttime");
+            addCriterionForJDBCDate("inserttime >", value, "inserttime");
             return (Criteria) this;
         }
 
         public Criteria andInserttimeGreaterThanOrEqualTo(Date value) {
-            addCriterionForJDBCDate("insertTime >=", value, "inserttime");
+            addCriterionForJDBCDate("inserttime >=", value, "inserttime");
             return (Criteria) this;
         }
 
         public Criteria andInserttimeLessThan(Date value) {
-            addCriterionForJDBCDate("insertTime <", value, "inserttime");
+            addCriterionForJDBCDate("inserttime <", value, "inserttime");
             return (Criteria) this;
         }
 
         public Criteria andInserttimeLessThanOrEqualTo(Date value) {
-            addCriterionForJDBCDate("insertTime <=", value, "inserttime");
+            addCriterionForJDBCDate("inserttime <=", value, "inserttime");
             return (Criteria) this;
         }
 
         public Criteria andInserttimeIn(List<Date> values) {
-            addCriterionForJDBCDate("insertTime in", values, "inserttime");
+            addCriterionForJDBCDate("inserttime in", values, "inserttime");
             return (Criteria) this;
         }
 
         public Criteria andInserttimeNotIn(List<Date> values) {
-            addCriterionForJDBCDate("insertTime not in", values, "inserttime");
+            addCriterionForJDBCDate("inserttime not in", values, "inserttime");
             return (Criteria) this;
         }
 
         public Criteria andInserttimeBetween(Date value1, Date value2) {
-            addCriterionForJDBCDate("insertTime between", value1, value2, "inserttime");
+            addCriterionForJDBCDate("inserttime between", value1, value2, "inserttime");
             return (Criteria) this;
         }
 
         public Criteria andInserttimeNotBetween(Date value1, Date value2) {
-            addCriterionForJDBCDate("insertTime not between", value1, value2, "inserttime");
+            addCriterionForJDBCDate("inserttime not between", value1, value2, "inserttime");
             return (Criteria) this;
         }
 

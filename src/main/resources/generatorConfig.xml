@@ -14,8 +14,9 @@
         </commentGenerator>
 
         <!--数据库连接的信息：驱动类、连接地址、用户名、密码 ,可选加上“useSSL=false” -->
+        <!--connectionURL="jdbc:mysql://192.168.10.134:3307/pubandcollect?serverTimezone=GMT%2B8"-->
         <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
-                        connectionURL="jdbc:mysql://192.168.10.134:3307/pubandcollect?serverTimezone=GMT%2B8"
+                        connectionURL="jdbc:mysql://47.95.39.132:3306/pubandcollect?serverTimezone=GMT%2B8"
                         userId="root"
                         password="mysql13610214">
             <property name="nullCatalogMeansCurrent" value="true"/>

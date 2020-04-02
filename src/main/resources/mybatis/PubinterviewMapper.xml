@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="edu.qingtai.pubandcollect.domain.Pubinterview">
     <id column="uuid" jdbcType="CHAR" property="uuid" />
     <result column="title" jdbcType="VARCHAR" property="title" />
-    <result column="insertTime" jdbcType="DATE" property="inserttime" />
+    <result column="inserttime" jdbcType="DATE" property="inserttime" />
     <result column="favorite" jdbcType="INTEGER" property="favorite" />
     <result column="images" jdbcType="VARCHAR" property="images" />
     <result column="openid" jdbcType="VARCHAR" property="openid" />
@@ -73,7 +73,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    uuid, title, insertTime, favorite, images, openid, username, userimage
+    uuid, title, inserttime, favorite, images, openid, username, userimage
   </sql>
   <sql id="Blob_Column_List">
     content
@@ -127,7 +127,7 @@
     </if>
   </delete>
   <insert id="insert" parameterType="edu.qingtai.pubandcollect.domain.Pubinterview">
-    insert into pubinterview (uuid, title, insertTime, 
+    insert into pubinterview (uuid, title, inserttime, 
       favorite, images, openid, 
       username, userimage, content
       )
@@ -146,7 +146,7 @@
         title,
       </if>
       <if test="inserttime != null">
-        insertTime,
+        inserttime,
       </if>
       <if test="favorite != null">
         favorite,
@@ -213,7 +213,7 @@
         title = #{record.title,jdbcType=VARCHAR},
       </if>
       <if test="record.inserttime != null">
-        insertTime = #{record.inserttime,jdbcType=DATE},
+        inserttime = #{record.inserttime,jdbcType=DATE},
       </if>
       <if test="record.favorite != null">
         favorite = #{record.favorite,jdbcType=INTEGER},
@@ -242,7 +242,7 @@
     update pubinterview
     set uuid = #{record.uuid,jdbcType=CHAR},
       title = #{record.title,jdbcType=VARCHAR},
-      insertTime = #{record.inserttime,jdbcType=DATE},
+      inserttime = #{record.inserttime,jdbcType=DATE},
       favorite = #{record.favorite,jdbcType=INTEGER},
       images = #{record.images,jdbcType=VARCHAR},
       openid = #{record.openid,jdbcType=VARCHAR},
@@ -257,7 +257,7 @@
     update pubinterview
     set uuid = #{record.uuid,jdbcType=CHAR},
       title = #{record.title,jdbcType=VARCHAR},
-      insertTime = #{record.inserttime,jdbcType=DATE},
+      inserttime = #{record.inserttime,jdbcType=DATE},
       favorite = #{record.favorite,jdbcType=INTEGER},
       images = #{record.images,jdbcType=VARCHAR},
       openid = #{record.openid,jdbcType=VARCHAR},
@@ -274,7 +274,7 @@
         title = #{title,jdbcType=VARCHAR},
       </if>
       <if test="inserttime != null">
-        insertTime = #{inserttime,jdbcType=DATE},
+        inserttime = #{inserttime,jdbcType=DATE},
       </if>
       <if test="favorite != null">
         favorite = #{favorite,jdbcType=INTEGER},
@@ -300,7 +300,7 @@
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="edu.qingtai.pubandcollect.domain.Pubinterview">
     update pubinterview
     set title = #{title,jdbcType=VARCHAR},
-      insertTime = #{inserttime,jdbcType=DATE},
+      inserttime = #{inserttime,jdbcType=DATE},
       favorite = #{favorite,jdbcType=INTEGER},
       images = #{images,jdbcType=VARCHAR},
       openid = #{openid,jdbcType=VARCHAR},
@@ -312,7 +312,7 @@
   <update id="updateByPrimaryKey" parameterType="edu.qingtai.pubandcollect.domain.Pubinterview">
     update pubinterview
     set title = #{title,jdbcType=VARCHAR},
-      insertTime = #{inserttime,jdbcType=DATE},
+      inserttime = #{inserttime,jdbcType=DATE},
       favorite = #{favorite,jdbcType=INTEGER},
       images = #{images,jdbcType=VARCHAR},
       openid = #{openid,jdbcType=VARCHAR},

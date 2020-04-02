@@ -5,10 +5,10 @@
     <id column="uuid" jdbcType="CHAR" property="uuid" />
     <result column="position" jdbcType="VARCHAR" property="position" />
     <result column="company" jdbcType="VARCHAR" property="company" />
-    <result column="workPlace" jdbcType="VARCHAR" property="workplace" />
+    <result column="workplace" jdbcType="VARCHAR" property="workplace" />
     <result column="education" jdbcType="VARCHAR" property="education" />
     <result column="salary" jdbcType="VARCHAR" property="salary" />
-    <result column="insertTime" jdbcType="DATE" property="inserttime" />
+    <result column="inserttime" jdbcType="DATE" property="inserttime" />
     <result column="label" jdbcType="VARCHAR" property="label" />
     <result column="truth" jdbcType="INTEGER" property="truth" />
     <result column="openid" jdbcType="VARCHAR" property="openid" />
@@ -78,7 +78,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    uuid, position, company, workPlace, education, salary, insertTime, label, truth, 
+    uuid, position, company, workplace, education, salary, inserttime, label, truth, 
     openid, favorite, username, userimage
   </sql>
   <sql id="Blob_Column_List">
@@ -134,8 +134,8 @@
   </delete>
   <insert id="insert" parameterType="edu.qingtai.pubandcollect.domain.Pubimpression">
     insert into pubimpression (uuid, position, company, 
-      workPlace, education, salary, 
-      insertTime, label, truth, 
+      workplace, education, salary, 
+      inserttime, label, truth, 
       openid, favorite, username, 
       userimage, content)
     values (#{uuid,jdbcType=CHAR}, #{position,jdbcType=VARCHAR}, #{company,jdbcType=VARCHAR}, 
@@ -157,7 +157,7 @@
         company,
       </if>
       <if test="workplace != null">
-        workPlace,
+        workplace,
       </if>
       <if test="education != null">
         education,
@@ -166,7 +166,7 @@
         salary,
       </if>
       <if test="inserttime != null">
-        insertTime,
+        inserttime,
       </if>
       <if test="label != null">
         label,
@@ -254,7 +254,7 @@
         company = #{record.company,jdbcType=VARCHAR},
       </if>
       <if test="record.workplace != null">
-        workPlace = #{record.workplace,jdbcType=VARCHAR},
+        workplace = #{record.workplace,jdbcType=VARCHAR},
       </if>
       <if test="record.education != null">
         education = #{record.education,jdbcType=VARCHAR},
@@ -263,7 +263,7 @@
         salary = #{record.salary,jdbcType=VARCHAR},
       </if>
       <if test="record.inserttime != null">
-        insertTime = #{record.inserttime,jdbcType=DATE},
+        inserttime = #{record.inserttime,jdbcType=DATE},
       </if>
       <if test="record.label != null">
         label = #{record.label,jdbcType=VARCHAR},
@@ -296,10 +296,10 @@
     set uuid = #{record.uuid,jdbcType=CHAR},
       position = #{record.position,jdbcType=VARCHAR},
       company = #{record.company,jdbcType=VARCHAR},
-      workPlace = #{record.workplace,jdbcType=VARCHAR},
+      workplace = #{record.workplace,jdbcType=VARCHAR},
       education = #{record.education,jdbcType=VARCHAR},
       salary = #{record.salary,jdbcType=VARCHAR},
-      insertTime = #{record.inserttime,jdbcType=DATE},
+      inserttime = #{record.inserttime,jdbcType=DATE},
       label = #{record.label,jdbcType=VARCHAR},
       truth = #{record.truth,jdbcType=INTEGER},
       openid = #{record.openid,jdbcType=VARCHAR},
@@ -316,10 +316,10 @@
     set uuid = #{record.uuid,jdbcType=CHAR},
       position = #{record.position,jdbcType=VARCHAR},
       company = #{record.company,jdbcType=VARCHAR},
-      workPlace = #{record.workplace,jdbcType=VARCHAR},
+      workplace = #{record.workplace,jdbcType=VARCHAR},
       education = #{record.education,jdbcType=VARCHAR},
       salary = #{record.salary,jdbcType=VARCHAR},
-      insertTime = #{record.inserttime,jdbcType=DATE},
+      inserttime = #{record.inserttime,jdbcType=DATE},
       label = #{record.label,jdbcType=VARCHAR},
       truth = #{record.truth,jdbcType=INTEGER},
       openid = #{record.openid,jdbcType=VARCHAR},
@@ -340,7 +340,7 @@
         company = #{company,jdbcType=VARCHAR},
       </if>
       <if test="workplace != null">
-        workPlace = #{workplace,jdbcType=VARCHAR},
+        workplace = #{workplace,jdbcType=VARCHAR},
       </if>
       <if test="education != null">
         education = #{education,jdbcType=VARCHAR},
@@ -349,7 +349,7 @@
         salary = #{salary,jdbcType=VARCHAR},
       </if>
       <if test="inserttime != null">
-        insertTime = #{inserttime,jdbcType=DATE},
+        inserttime = #{inserttime,jdbcType=DATE},
       </if>
       <if test="label != null">
         label = #{label,jdbcType=VARCHAR},
@@ -379,10 +379,10 @@
     update pubimpression
     set position = #{position,jdbcType=VARCHAR},
       company = #{company,jdbcType=VARCHAR},
-      workPlace = #{workplace,jdbcType=VARCHAR},
+      workplace = #{workplace,jdbcType=VARCHAR},
       education = #{education,jdbcType=VARCHAR},
       salary = #{salary,jdbcType=VARCHAR},
-      insertTime = #{inserttime,jdbcType=DATE},
+      inserttime = #{inserttime,jdbcType=DATE},
       label = #{label,jdbcType=VARCHAR},
       truth = #{truth,jdbcType=INTEGER},
       openid = #{openid,jdbcType=VARCHAR},
@@ -396,10 +396,10 @@
     update pubimpression
     set position = #{position,jdbcType=VARCHAR},
       company = #{company,jdbcType=VARCHAR},
-      workPlace = #{workplace,jdbcType=VARCHAR},
+      workplace = #{workplace,jdbcType=VARCHAR},
       education = #{education,jdbcType=VARCHAR},
       salary = #{salary,jdbcType=VARCHAR},
-      insertTime = #{inserttime,jdbcType=DATE},
+      inserttime = #{inserttime,jdbcType=DATE},
       label = #{label,jdbcType=VARCHAR},
       truth = #{truth,jdbcType=INTEGER},
       openid = #{openid,jdbcType=VARCHAR},
