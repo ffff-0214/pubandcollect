@@ -1,16 +1,20 @@
 package edu.qingtai.pubandcollect.service;
 
 import edu.qingtai.pubandcollect.domain.Pubinfer;
+import edu.qingtai.pubandcollect.domain.PubinferVo;
 import edu.qingtai.pubandcollect.mapper.CollectinferMapper;
 import edu.qingtai.pubandcollect.mapper.PubinferMapper;
 import edu.qingtai.pubandcollect.util.ConstData;
 import edu.qingtai.pubandcollect.util.QuireDate;
 import edu.qingtai.pubandcollect.util.RedisUtils;
 import edu.qingtai.pubandcollect.util.UploadImage;
+import org.dozer.DozerBeanMapperBuilder;
+import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -65,5 +69,31 @@ public class PubinferServiceImpl implements PubinferService{
             return null;
         }
         return pubinferMapper.selectInferByUuidList(uuidList);
+    }
+
+    @Override
+    public List<PubinferVo> queryTrueInfers(int pageIndex, String rd3session){
+        Mapper mapper = DozerBeanMapperBuilder.buildDefault();
+
+        List<Pubinfer> pubinferList = queryInfers(pageIndex);
+
+        List<String> uuidList = collectinferMapper.selectUuidByOpenid(redisUtils.get(rd3session));
+
+        List<PubinferVo> pubinferVoList = new ArrayList<>();
+
+        if(pubinferList == null){
+            return pubinferVoList;
+        }else{
+            for(Pubinfer pubinfer : pubinferList){
+                if(uuidList.contains(pubinfer.getUuid())){
+                    PubinferVo pubinferVo = mapper.map(pubinfer, PubinferVo.class);
+                    pubinferVo.setCollect(Boolean.TRUE);
+                    pubinferVoList.add(pubinferVo);
+                }else{
+                    pubinferVoList.add(mapper.map(pubinfer, PubinferVo.class));
+                }
+            }
+            return pubinferVoList;
+        }
     }
 }

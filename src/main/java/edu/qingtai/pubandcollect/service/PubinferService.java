@@ -1,6 +1,7 @@
 package edu.qingtai.pubandcollect.service;
 
 import edu.qingtai.pubandcollect.domain.Pubinfer;
+import edu.qingtai.pubandcollect.domain.PubinferVo;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -14,4 +15,6 @@ public interface PubinferService {
     void deleteInfer(String uuid);
 
     List<Pubinfer> queryInfers(int pageIndex);
+
+    List<PubinferVo> queryTrueInfers(int pageIndex, String rd3session);
 }

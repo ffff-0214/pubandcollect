@@ -1,14 +1,18 @@
 package edu.qingtai.pubandcollect.service;
 
 import edu.qingtai.pubandcollect.domain.Pubimpression;
+import edu.qingtai.pubandcollect.domain.PubimpressionVo;
 import edu.qingtai.pubandcollect.mapper.CollectimpressionMapper;
 import edu.qingtai.pubandcollect.mapper.PubimpressionMapper;
 import edu.qingtai.pubandcollect.util.ConstData;
 import edu.qingtai.pubandcollect.util.QuireDate;
 import edu.qingtai.pubandcollect.util.RedisUtils;
+import org.dozer.DozerBeanMapperBuilder;
+import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -67,5 +71,33 @@ public class PubimpressionServiceImpl implements PubimpressionService{
             return null;
         }
         return pubimpressionMapper.selectImpressionByUuidList(uuidList);
+    }
+
+    @Override
+    public List<PubimpressionVo> queryTrueImpressions(int pageIndex, String rd3session){
+        Mapper mapper = DozerBeanMapperBuilder.buildDefault();
+
+        List<Pubimpression> pubimpressionList = queryImpressions(pageIndex);
+
+        List<String> uuidList = collectimpressionMapper.selectUuidByOpenid(redisUtils.get(rd3session));
+
+        List<PubimpressionVo> pubimpressionVoList = new ArrayList<>();
+
+        if(pubimpressionList == null){
+            return pubimpressionVoList;
+        }else{
+            for(Pubimpression pubimpression : pubimpressionList){
+                if(uuidList.contains(pubimpression.getUuid())){
+                    PubimpressionVo pubimpressionVo = mapper.map(pubimpression, PubimpressionVo.class);
+                    pubimpressionVo.setCollect(Boolean.TRUE);
+                    pubimpressionVoList.add(pubimpressionVo);
+                }else{
+                    pubimpressionVoList.add(mapper.map(pubimpression, PubimpressionVo.class));
+                }
+            }
+
+            return pubimpressionVoList;
+        }
+
     }
 }

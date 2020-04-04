@@ -1,6 +1,7 @@
 package edu.qingtai.pubandcollect.service;
 
 import edu.qingtai.pubandcollect.domain.Pubimpression;
+import edu.qingtai.pubandcollect.domain.PubimpressionVo;
 
 import java.util.List;
 
@@ -13,4 +14,6 @@ public interface PubimpressionService {
     void deleteImpression(String uuid);
 
     List<Pubimpression> queryImpressions(int PageIndex);
+
+    List<PubimpressionVo> queryTrueImpressions(int pageIndex, String rd3session);
 }

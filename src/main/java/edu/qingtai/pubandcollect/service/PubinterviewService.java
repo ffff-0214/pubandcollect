@@ -1,6 +1,7 @@
 package edu.qingtai.pubandcollect.service;
 
 import edu.qingtai.pubandcollect.domain.Pubinterview;
+import edu.qingtai.pubandcollect.domain.PubinterviewVo;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -14,4 +15,6 @@ public interface PubinterviewService {
     void deleteInterview(String uuid);
 
     List<Pubinterview> queryInterviews(int pageIndex);
+
+    List<PubinterviewVo> queryTrueInterviews(int pageIndex, String rd3session);
 }

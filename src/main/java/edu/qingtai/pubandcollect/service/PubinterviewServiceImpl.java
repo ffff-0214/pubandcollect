@@ -1,16 +1,20 @@
 package edu.qingtai.pubandcollect.service;
 
 import edu.qingtai.pubandcollect.domain.Pubinterview;
+import edu.qingtai.pubandcollect.domain.PubinterviewVo;
 import edu.qingtai.pubandcollect.mapper.CollectinterviewMapper;
 import edu.qingtai.pubandcollect.mapper.PubinterviewMapper;
 import edu.qingtai.pubandcollect.util.ConstData;
 import edu.qingtai.pubandcollect.util.QuireDate;
 import edu.qingtai.pubandcollect.util.RedisUtils;
 import edu.qingtai.pubandcollect.util.UploadImage;
+import org.dozer.DozerBeanMapperBuilder;
+import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -64,5 +68,32 @@ public class PubinterviewServiceImpl implements PubinterviewService{
             return null;
         }
         return pubinterviewMapper.selectInterviewByUuidList(uuidList);
+    }
+
+    @Override
+    public List<PubinterviewVo> queryTrueInterviews(int pageIndex, String rd3session){
+        Mapper mapper = DozerBeanMapperBuilder.buildDefault();
+
+        List<Pubinterview> pubinterviewList = queryInterviews(pageIndex);
+
+        List<String> uuidList = collectinterviewMapper.selectUuidByOpenid(redisUtils.get(rd3session));
+
+        List<PubinterviewVo> pubinterviewVoList = new ArrayList<>();
+
+        if(pubinterviewList == null){
+            return pubinterviewVoList;
+        }else{
+            for(Pubinterview pubinterview : pubinterviewList){
+                if(uuidList.contains(pubinterview.getUuid())){
+                    PubinterviewVo pubinterviewVo = mapper.map(pubinterview, PubinterviewVo.class);
+                    pubinterviewVo.setCollect(Boolean.TRUE);
+                    pubinterviewVoList.add(pubinterviewVo);
+                }else{
+                    pubinterviewVoList.add(mapper.map(pubinterview, PubinterviewVo.class));
+                }
+            }
+
+            return pubinterviewVoList;
+        }
     }
 }

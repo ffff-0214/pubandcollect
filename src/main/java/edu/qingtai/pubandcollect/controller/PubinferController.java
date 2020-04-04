@@ -1,6 +1,7 @@
 package edu.qingtai.pubandcollect.controller;
 
 import edu.qingtai.pubandcollect.domain.Pubinfer;
+import edu.qingtai.pubandcollect.domain.PubinferVo;
 import edu.qingtai.pubandcollect.service.PubinferService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -40,7 +41,8 @@ public class PubinferController {
     }
 
     @GetMapping
-    public List<Pubinfer> queryInfer(@RequestParam("pageIndex") int pageIndex){
-        return pubinferService.queryInfers(pageIndex);
+    public List<PubinferVo> queryInfer(@RequestParam("pageIndex") int pageIndex,
+                                       @RequestParam("rd3session") String rd3session){
+        return pubinferService.queryTrueInfers(pageIndex, rd3session);
     }
 }

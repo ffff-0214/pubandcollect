@@ -1,6 +1,7 @@
 package edu.qingtai.pubandcollect.controller;
 
 import edu.qingtai.pubandcollect.domain.Pubimpression;
+import edu.qingtai.pubandcollect.domain.PubimpressionVo;
 import edu.qingtai.pubandcollect.service.PubimpressionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -43,7 +44,8 @@ public class PubimpressionController {
     }
 
     @GetMapping
-    public List<Pubimpression> queryImpression(@RequestParam("pageIndex") int pageIndex){
-        return pubimpressionService.queryImpressions(pageIndex);
+    public List<PubimpressionVo> queryImpression(@RequestParam("pageIndex") int pageIndex,
+                                                 @RequestParam("rd3session") String rd3session){
+        return pubimpressionService.queryTrueImpressions(pageIndex, rd3session);
     }
 }
