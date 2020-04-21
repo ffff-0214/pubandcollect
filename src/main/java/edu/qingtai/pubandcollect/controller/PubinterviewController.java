@@ -25,8 +25,8 @@ public class PubinterviewController {
                         @RequestParam("content") String content,
                         @RequestParam("username") String username,
                         @RequestParam("userimage") String userimage,
-                        @RequestParam("fileList") List<MultipartFile> fileList){
-        pubinterviewService.saveInterview(title, rd3session, content, username, userimage, fileList);
+                        @RequestParam("images") String images){
+        pubinterviewService.saveInterview(title, rd3session, content, username, userimage, images);
     }
 
     @GetMapping(value = "/myself")

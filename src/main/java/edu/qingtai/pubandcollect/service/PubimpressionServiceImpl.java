@@ -21,14 +21,17 @@ public class PubimpressionServiceImpl implements PubimpressionService{
     private PubimpressionMapper pubimpressionMapper;
     private CollectimpressionMapper collectimpressionMapper;
     private RedisUtils redisUtils;
+    private Mapper mapper;
 
     @Autowired
     public PubimpressionServiceImpl(final PubimpressionMapper pubimpressionMapper,
                                     final RedisUtils redisUtils,
-                                    final CollectimpressionMapper collectimpressionMapper){
+                                    final CollectimpressionMapper collectimpressionMapper,
+                                    final Mapper mapper){
         this.pubimpressionMapper = pubimpressionMapper;
         this.redisUtils = redisUtils;
         this.collectimpressionMapper = collectimpressionMapper;
+        this.mapper = mapper;
     }
 
     @Override
@@ -75,7 +78,7 @@ public class PubimpressionServiceImpl implements PubimpressionService{
 
     @Override
     public List<PubimpressionVo> queryTrueImpressions(int pageIndex, String rd3session){
-        Mapper mapper = DozerBeanMapperBuilder.buildDefault();
+//        Mapper mapper = DozerBeanMapperBuilder.buildDefault();
 
         List<Pubimpression> pubimpressionList = queryImpressions(pageIndex);
 

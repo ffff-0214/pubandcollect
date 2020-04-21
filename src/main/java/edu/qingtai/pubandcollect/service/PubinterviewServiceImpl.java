@@ -23,25 +23,28 @@ public class PubinterviewServiceImpl implements PubinterviewService{
     private PubinterviewMapper pubinterviewMapper;
     private RedisUtils redisUtils;
     private CollectinterviewMapper collectinterviewMapper;
+    private Mapper mapper;
 
     @Autowired
     public PubinterviewServiceImpl(final PubinterviewMapper pubinterviewMapper,
                                    final RedisUtils redisUtils,
-                                   final CollectinterviewMapper collectinterviewMapper){
+                                   final CollectinterviewMapper collectinterviewMapper,
+                                   final Mapper mapper){
         this.pubinterviewMapper = pubinterviewMapper;
         this.redisUtils = redisUtils;
         this.collectinterviewMapper = collectinterviewMapper;
+        this.mapper = mapper;
     }
 
     @Override
     public void saveInterview(String title, String rd3session, String content,
-                              String username, String userimage, List<MultipartFile> fileList){
+                              String username, String userimage, String images){
         Pubinterview pubinterview = new Pubinterview();
         pubinterview.setTitle(title);
         pubinterview.setOpenid(redisUtils.get(rd3session));
         pubinterview.setContent(content);
-        String Images = UploadImage.uploadImagesOfInfer(ConstData.interviewLocation,fileList, pubinterview.getOpenid());
-        pubinterview.setImages(Images);
+//        String Images = UploadImage.uploadImagesOfInfer(ConstData.interviewLocation,fileList, pubinterview.getOpenid());
+        pubinterview.setImages(images);
         pubinterview.setInserttime(QuireDate.currentDate());
         pubinterview.setUuid(UUID.randomUUID().toString().replace("-", ""));
         pubinterview.setUsername(username);
@@ -72,7 +75,7 @@ public class PubinterviewServiceImpl implements PubinterviewService{
 
     @Override
     public List<PubinterviewVo> queryTrueInterviews(int pageIndex, String rd3session){
-        Mapper mapper = DozerBeanMapperBuilder.buildDefault();
+//        Mapper mapper = DozerBeanMapperBuilder.buildDefault();
 
         List<Pubinterview> pubinterviewList = queryInterviews(pageIndex);
 

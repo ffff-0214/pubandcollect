@@ -5,7 +5,6 @@ import edu.qingtai.pubandcollect.domain.PubinferVo;
 import edu.qingtai.pubandcollect.service.PubinferService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -19,6 +18,8 @@ public class PubinferController {
         this.pubinferService = pubinferService;
     }
 
+
+//@RequestBody PubinferRec pubinferRec
     @PostMapping
     public void Publish(@RequestParam("title") String title,
                         @RequestParam("label") String label,
@@ -26,8 +27,9 @@ public class PubinferController {
                         @RequestParam("content") String content,
                         @RequestParam("username") String username,
                         @RequestParam("userimage") String userimage,
-                        @RequestParam("fileList") List<MultipartFile> fileList){
-        pubinferService.saveInfer(title, label, rd3session, content, username, userimage, fileList);
+                        @RequestParam("images") String images){
+        pubinferService.saveInfer(title, label, rd3session, content, username,
+                userimage, images);
     }
 
     @GetMapping(value = "/myself")

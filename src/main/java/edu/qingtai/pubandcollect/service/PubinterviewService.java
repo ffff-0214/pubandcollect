@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface PubinterviewService {
     void saveInterview(String title, String rd3session, String content,
-                       String username, String userimage, List<MultipartFile> fileList);
+                       String username, String userimage, String images);
 
     List<Pubinterview> queryMyPublish(String rd3session);
 

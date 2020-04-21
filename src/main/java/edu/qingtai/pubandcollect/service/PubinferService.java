@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface PubinferService {
     void saveInfer(String title, String label, String rd3session, String content, String username,
-                   String userimage, List<MultipartFile> fileList);
+                   String userimage, String images);
 
     List<Pubinfer> queryMyPublish(String rd3session);
 

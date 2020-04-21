@@ -23,25 +23,28 @@ public class PubinferServiceImpl implements PubinferService{
     private PubinferMapper pubinferMapper;
     private CollectinferMapper collectinferMapper;
     private RedisUtils redisUtils;
+    private Mapper mapper;
 
     @Autowired
     public PubinferServiceImpl(final PubinferMapper pubinferMapper,
                                final RedisUtils redisUtils,
-                               final CollectinferMapper collectinferMapper){
+                               final CollectinferMapper collectinferMapper,
+                               final Mapper mapper){
         this.pubinferMapper = pubinferMapper;
         this.redisUtils = redisUtils;
         this.collectinferMapper = collectinferMapper;
+        this.mapper = mapper;
     }
 
     @Override
     public void saveInfer(String title, String label, String rd3session, String content,
-                          String username, String userimage, List<MultipartFile> fileList){
+                          String username, String userimage, String images){
         Pubinfer pubinfer = new Pubinfer();
         pubinfer.setTitle(title);
         pubinfer.setLabel(label);
         pubinfer.setOpenid(redisUtils.get(rd3session));
         pubinfer.setContent(content);
-        String images = UploadImage.uploadImagesOfInfer(ConstData.inferLocation, fileList, pubinfer.getOpenid());
+//        String images = UploadImage.uploadImagesOfInfer(ConstData.inferLocation, fileList, pubinfer.getOpenid());
         pubinfer.setImages(images);
         pubinfer.setInserttime(QuireDate.currentDate());
         pubinfer.setUuid(UUID.randomUUID().toString().replace("-", ""));
@@ -73,7 +76,7 @@ public class PubinferServiceImpl implements PubinferService{
 
     @Override
     public List<PubinferVo> queryTrueInfers(int pageIndex, String rd3session){
-        Mapper mapper = DozerBeanMapperBuilder.buildDefault();
+//        Mapper mapper = DozerBeanMapperBuilder.buildDefault();
 
         List<Pubinfer> pubinferList = queryInfers(pageIndex);
 
