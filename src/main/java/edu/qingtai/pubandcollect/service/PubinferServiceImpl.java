@@ -50,12 +50,26 @@ public class PubinferServiceImpl implements PubinferService{
         pubinfer.setUuid(UUID.randomUUID().toString().replace("-", ""));
         pubinfer.setUsername(username);
         pubinfer.setUserimage(userimage);
+        pubinfer.setFavorite(0);
         pubinferMapper.insert(pubinfer);
     }
 
     @Override
-    public List<Pubinfer> queryMyPublish(String rd3session){
-        return pubinferMapper.selectMyPublish(redisUtils.get(rd3session));
+    public List<PubinferVo> queryMyPublish(String rd3session){
+        List<Pubinfer> pubinferList = pubinferMapper.selectMyPublish(redisUtils.get(rd3session));
+        List<PubinferVo> pubinferVoList = new ArrayList<>();
+
+        if(pubinferList == null){
+            return pubinferVoList;
+        }else{
+            for(Pubinfer pubinfer : pubinferList){
+                PubinferVo pubinferVo = mapper.map(pubinfer, PubinferVo.class);
+                pubinferVo.setLabels();
+                pubinferVoList.add(pubinferVo);
+
+            }
+            return pubinferVoList;
+        }
     }
 
     @Override
@@ -91,9 +105,12 @@ public class PubinferServiceImpl implements PubinferService{
                 if(uuidList.contains(pubinfer.getUuid())){
                     PubinferVo pubinferVo = mapper.map(pubinfer, PubinferVo.class);
                     pubinferVo.setCollect(Boolean.TRUE);
+                    pubinferVo.setLabels();
                     pubinferVoList.add(pubinferVo);
                 }else{
-                    pubinferVoList.add(mapper.map(pubinfer, PubinferVo.class));
+                    PubinferVo pubinferVo = mapper.map(pubinfer, PubinferVo.class);
+                    pubinferVo.setLabels();
+                    pubinferVoList.add(pubinferVo);
                 }
             }
             return pubinferVoList;

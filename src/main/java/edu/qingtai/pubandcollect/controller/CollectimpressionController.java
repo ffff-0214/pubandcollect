@@ -1,6 +1,7 @@
 package edu.qingtai.pubandcollect.controller;
 
 import edu.qingtai.pubandcollect.domain.Pubimpression;
+import edu.qingtai.pubandcollect.domain.PubimpressionVo;
 import edu.qingtai.pubandcollect.service.CollectimpressionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -24,7 +25,7 @@ public class CollectimpressionController {
     }
 
     @GetMapping
-    public List<Pubimpression> queryImpressionByOpenid(@RequestParam("rd3session") String rd3session){
+    public List<PubimpressionVo> queryImpressionByOpenid(@RequestParam("rd3session") String rd3session){
         return collectimpressionService.queryImpressionFromOpenid(rd3session);
     }
 

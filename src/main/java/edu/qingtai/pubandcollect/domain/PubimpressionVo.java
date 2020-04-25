@@ -33,6 +33,8 @@ public class PubimpressionVo {
 
     private Boolean collect = Boolean.FALSE;
 
+    private String[] labels;
+
     public String getUuid() {
         return uuid;
     }
@@ -151,5 +153,13 @@ public class PubimpressionVo {
 
     public void setCollect(Boolean collect) {
         this.collect = collect;
+    }
+
+    public String[] getLabels() {
+        return labels;
+    }
+
+    public void setLabels() {
+        this.labels = this.label.split(",");
     }
 }

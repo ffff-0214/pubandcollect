@@ -1,6 +1,7 @@
 package edu.qingtai.pubandcollect.controller;
 
 import edu.qingtai.pubandcollect.domain.Pubinfer;
+import edu.qingtai.pubandcollect.domain.PubinferVo;
 import edu.qingtai.pubandcollect.service.CollectinferService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -24,7 +25,7 @@ public class CollectinferController {
     }
 
     @GetMapping
-    public List<Pubinfer> queryInferByOpenid(@RequestParam("rd3session") String rd3session){
+    public List<PubinferVo> queryInferByOpenid(@RequestParam("rd3session") String rd3session){
         return collectinferService.queryInferFromOpenid(rd3session);
     }
 

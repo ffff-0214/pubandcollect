@@ -1,6 +1,7 @@
 package edu.qingtai.pubandcollect.controller;
 
 import edu.qingtai.pubandcollect.domain.Pubinterview;
+import edu.qingtai.pubandcollect.domain.PubinterviewRec;
 import edu.qingtai.pubandcollect.domain.PubinterviewVo;
 import edu.qingtai.pubandcollect.service.PubinterviewService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,17 +21,17 @@ public class PubinterviewController {
     }
 
     @PostMapping
-    public void Publish(@RequestParam("title") String title,
-                        @RequestParam("rd3session") String rd3session,
-                        @RequestParam("content") String content,
-                        @RequestParam("username") String username,
-                        @RequestParam("userimage") String userimage,
-                        @RequestParam("images") String images){
-        pubinterviewService.saveInterview(title, rd3session, content, username, userimage, images);
+    public void Publish(@RequestBody PubinterviewRec pubinterviewRec){
+        pubinterviewService.saveInterview(pubinterviewRec.getTitle(),
+                pubinterviewRec.getRd3session(),
+                pubinterviewRec.getContent(),
+                pubinterviewRec.getUsername(),
+                pubinterviewRec.getUserimage(),
+                pubinterviewRec.getImages());
     }
 
     @GetMapping(value = "/myself")
-    public List<Pubinterview> queryMyPublish(@RequestParam("rd3session") String rd3session){
+    public List<PubinterviewVo> queryMyPublish(@RequestParam("rd3session") String rd3session){
         return pubinterviewService.queryMyPublish(rd3session);
     }
 

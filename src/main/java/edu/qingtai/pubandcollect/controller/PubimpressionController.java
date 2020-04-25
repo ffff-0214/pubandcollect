@@ -1,6 +1,7 @@
 package edu.qingtai.pubandcollect.controller;
 
 import edu.qingtai.pubandcollect.domain.Pubimpression;
+import edu.qingtai.pubandcollect.domain.PubimpressionRec;
 import edu.qingtai.pubandcollect.domain.PubimpressionVo;
 import edu.qingtai.pubandcollect.service.PubimpressionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,22 +20,21 @@ public class PubimpressionController {
     }
 
     @PostMapping
-    public void Publish(@RequestParam("position") String position,
-                        @RequestParam("company") String company,
-                        @RequestParam("workplace") String workPlace,
-                        @RequestParam("education") String education,
-                        @RequestParam("salary") String salary,
-                        @RequestParam("label") String label,
-                        @RequestParam("content") String content,
-                        @RequestParam("rd3session") String rd3session,
-                        @RequestParam("username") String username,
-                        @RequestParam("userimage") String userimage){
-        pubimpressionService.saveImpression(position, company, workPlace, education, salary, label, content,
-                rd3session, username, userimage);
+    public void Publish(@RequestBody PubimpressionRec pubimpressionRec){
+        pubimpressionService.saveImpression(pubimpressionRec.getPosition(),
+                pubimpressionRec.getCompany(),
+                pubimpressionRec.getWorkplace(),
+                pubimpressionRec.getEducation(),
+                pubimpressionRec.getSalary(),
+                pubimpressionRec.getLabel(),
+                pubimpressionRec.getContent(),
+                pubimpressionRec.getRd3session(),
+                pubimpressionRec.getUsername(),
+                pubimpressionRec.getUserimage());
     }
 
     @GetMapping(value = "/myself")
-    public List<Pubimpression> queryMyImpression(@RequestParam("rd3session") String rd3session){
+    public List<PubimpressionVo> queryMyImpression(@RequestParam("rd3session") String rd3session){
         return pubimpressionService.queryMyPublish(rd3session);
     }
 

@@ -1,6 +1,7 @@
 package edu.qingtai.pubandcollect.controller;
 
 import edu.qingtai.pubandcollect.domain.Pubinfer;
+import edu.qingtai.pubandcollect.domain.PubinferRec;
 import edu.qingtai.pubandcollect.domain.PubinferVo;
 import edu.qingtai.pubandcollect.service.PubinferService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,22 +19,24 @@ public class PubinferController {
         this.pubinferService = pubinferService;
     }
 
+//    @RequestParam("title") String title,
+//    @RequestParam("label") String label,
+//    @RequestParam("rd3session") String rd3session,
+//    @RequestParam("content") String content,
+//    @RequestParam("username") String username,
+//    @RequestParam("userimage") String userimage,
+//    @RequestParam("images") String images
 
-//@RequestBody PubinferRec pubinferRec
     @PostMapping
-    public void Publish(@RequestParam("title") String title,
-                        @RequestParam("label") String label,
-                        @RequestParam("rd3session") String rd3session,
-                        @RequestParam("content") String content,
-                        @RequestParam("username") String username,
-                        @RequestParam("userimage") String userimage,
-                        @RequestParam("images") String images){
-        pubinferService.saveInfer(title, label, rd3session, content, username,
-                userimage, images);
+    public void Publish(@RequestBody PubinferRec pubinferRec){
+        pubinferService.saveInfer(pubinferRec.getTitle(),
+                pubinferRec.getLabel(), pubinferRec.getRd3session(),
+                pubinferRec.getContent(), pubinferRec.getUsername(),
+                pubinferRec.getUserimage(), pubinferRec.getImages());
     }
 
     @GetMapping(value = "/myself")
-    public List<Pubinfer> queryMyPublish(@RequestParam("rd3session") String rd3session){
+    public List<PubinferVo> queryMyPublish(@RequestParam("rd3session") String rd3session){
         return pubinferService.queryMyPublish(rd3session);
     }
 

@@ -9,7 +9,7 @@ public interface PubimpressionService {
     void saveImpression(String position, String company, String workPlace, String education, String salary,
                         String label, String content, String rd3session, String username, String userimage);
 
-    List<Pubimpression> queryMyPublish(String rd3session);
+    List<PubimpressionVo> queryMyPublish(String rd3session);
 
     void deleteImpression(String uuid);
 

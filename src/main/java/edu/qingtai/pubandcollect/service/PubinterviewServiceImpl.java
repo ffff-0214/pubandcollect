@@ -49,12 +49,25 @@ public class PubinterviewServiceImpl implements PubinterviewService{
         pubinterview.setUuid(UUID.randomUUID().toString().replace("-", ""));
         pubinterview.setUsername(username);
         pubinterview.setUserimage(userimage);
+        pubinterview.setFavorite(0);
         pubinterviewMapper.insert(pubinterview);
     }
 
     @Override
-    public List<Pubinterview> queryMyPublish(String rd3session){
-        return pubinterviewMapper.selectMyPublish(redisUtils.get(rd3session));
+    public List<PubinterviewVo> queryMyPublish(String rd3session){
+        List<Pubinterview> pubinterviewList = pubinterviewMapper.selectMyPublish(redisUtils.get(rd3session));
+
+        List<PubinterviewVo> pubinterviewVoList = new ArrayList<>();
+
+        if(pubinterviewList == null){
+            return pubinterviewVoList;
+        }else{
+            for(Pubinterview pubinterview : pubinterviewList){
+                PubinterviewVo pubinterviewVo = mapper.map(pubinterview, PubinterviewVo.class);
+                pubinterviewVoList.add(pubinterviewVo);
+            }
+            return pubinterviewVoList;
+        }
     }
 
     @Override

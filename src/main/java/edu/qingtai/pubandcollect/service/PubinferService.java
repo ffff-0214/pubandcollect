@@ -10,7 +10,7 @@ public interface PubinferService {
     void saveInfer(String title, String label, String rd3session, String content, String username,
                    String userimage, String images);
 
-    List<Pubinfer> queryMyPublish(String rd3session);
+    List<PubinferVo> queryMyPublish(String rd3session);
 
     void deleteInfer(String uuid);
 

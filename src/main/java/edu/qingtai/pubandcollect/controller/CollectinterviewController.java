@@ -1,6 +1,7 @@
 package edu.qingtai.pubandcollect.controller;
 
 import edu.qingtai.pubandcollect.domain.Pubinterview;
+import edu.qingtai.pubandcollect.domain.PubinterviewVo;
 import edu.qingtai.pubandcollect.service.CollectinterviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -24,7 +25,7 @@ public class CollectinterviewController {
     }
 
     @GetMapping
-    public List<Pubinterview> queryInterviewByOpenid(@RequestParam("rd3session") String rd3session){
+    public List<PubinterviewVo> queryInterviewByOpenid(@RequestParam("rd3session") String rd3session){
         return collectinterviewService.queryInterviewFromOpenid(rd3session);
     }
 

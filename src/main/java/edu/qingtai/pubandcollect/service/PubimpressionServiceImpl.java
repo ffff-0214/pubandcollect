@@ -50,13 +50,27 @@ public class PubimpressionServiceImpl implements PubimpressionService{
         pubimpression.setUuid(UUID.randomUUID().toString().replace("-", ""));
         pubimpression.setUsername(username);
         pubimpression.setUserimage(userimage);
+        pubimpression.setFavorite(0);
         pubimpressionMapper.insert(pubimpression);
 
     }
 
     @Override
-    public List<Pubimpression> queryMyPublish(String rd3session){
-        return pubimpressionMapper.selectMyPublish(redisUtils.get(rd3session));
+    public List<PubimpressionVo> queryMyPublish(String rd3session){
+        List<Pubimpression> pubimpressionList = pubimpressionMapper.selectMyPublish(redisUtils.get(rd3session));
+
+        List<PubimpressionVo> pubimpressionVoList = new ArrayList<>();
+
+        if(pubimpressionList == null){
+            return pubimpressionVoList;
+        }else{
+            for(Pubimpression pubimpression : pubimpressionList){
+                PubimpressionVo pubimpressionVo = mapper.map(pubimpression, PubimpressionVo.class);
+                pubimpressionVo.setLabels();
+                pubimpressionVoList.add(pubimpressionVo);
+            }
+            return pubimpressionVoList;
+        }
     }
 
     @Override
@@ -93,9 +107,12 @@ public class PubimpressionServiceImpl implements PubimpressionService{
                 if(uuidList.contains(pubimpression.getUuid())){
                     PubimpressionVo pubimpressionVo = mapper.map(pubimpression, PubimpressionVo.class);
                     pubimpressionVo.setCollect(Boolean.TRUE);
+                    pubimpressionVo.setLabels();
                     pubimpressionVoList.add(pubimpressionVo);
                 }else{
-                    pubimpressionVoList.add(mapper.map(pubimpression, PubimpressionVo.class));
+                    PubimpressionVo pubimpressionVo = mapper.map(pubimpression, PubimpressionVo.class);
+                    pubimpressionVo.setLabels();
+                    pubimpressionVoList.add(pubimpressionVo);
                 }
             }
 

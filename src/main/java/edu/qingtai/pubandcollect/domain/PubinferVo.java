@@ -23,6 +23,8 @@ public class PubinferVo {
 
     private String content;
 
+    private String[] labels;
+
     private Boolean collect = Boolean.FALSE;
 
     public String getUuid() {
@@ -111,5 +113,13 @@ public class PubinferVo {
 
     public void setCollect(Boolean collect) {
         this.collect = collect;
+    }
+
+    public String[] getLabels() {
+        return labels;
+    }
+
+    public void setLabels(){
+        this.labels = this.label.split(",");
     }
 }
