@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping(value = "/interview")
@@ -36,8 +37,8 @@ public class PubinterviewController {
     }
 
     @DeleteMapping
-    public void deleteInterview(@RequestParam("uuid") String uuid){
-        pubinterviewService.deleteInterview(uuid);
+    public void deleteInterview(@RequestBody Map<String,String> uuid){
+        pubinterviewService.deleteInterview(uuid.get("uuid"));
     }
 
     @GetMapping

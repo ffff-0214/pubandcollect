@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping(value = "/infer")
@@ -41,8 +42,9 @@ public class PubinferController {
     }
 
     @DeleteMapping
-    public void deleteInfer(@RequestParam("uuid") String uuid){
-        pubinferService.deleteInfer(uuid);
+    //uuid: uuid
+    public void deleteInfer(@RequestBody Map<String,String> uuid){
+        pubinferService.deleteInfer(uuid.get("uuid"));
     }
 
     @GetMapping

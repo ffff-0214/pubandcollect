@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping(value = "/collectImpression")
@@ -19,9 +20,10 @@ public class CollectimpressionController {
     }
 
     @PostMapping
-    public void saveImpressionCollect(@RequestParam("uuid") String uuid,
-                                      @RequestParam("rd3session") String rd3session){
-        collectimpressionService.saveCollectImpression(uuid, rd3session);
+//    @RequestParam("uuid") String uuid,
+//    @RequestParam("rd3session") String rd3session
+    public void saveImpressionCollect(@RequestBody Map<String,String> info){
+        collectimpressionService.saveCollectImpression(info.get("uuid"), info.get("rd3session"));
     }
 
     @GetMapping
@@ -30,8 +32,7 @@ public class CollectimpressionController {
     }
 
     @DeleteMapping
-    public void deleteImpressionCollect(@RequestParam("uuid") String uuid,
-                                        @RequestParam("rd3session") String rd3session){
-        collectimpressionService.deleteCollectImpression(uuid, rd3session);
+    public void deleteImpressionCollect(@RequestBody Map<String,String> info){
+        collectimpressionService.deleteCollectImpression(info.get("uuid"), info.get("rd3session"));
     }
 }

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping(value = "/collectInterview")
@@ -19,9 +20,8 @@ public class CollectinterviewController {
     }
 
     @PostMapping
-    public void saveImpressionCollect(@RequestParam("uuid") String uuid,
-                                      @RequestParam("rd3session") String rd3session){
-        collectinterviewService.saveCollectInterview(uuid, rd3session);
+    public void saveImpressionCollect(@RequestBody Map<String,String> info){
+        collectinterviewService.saveCollectInterview(info.get("uuid"), info.get("rd3session"));
     }
 
     @GetMapping
@@ -30,8 +30,7 @@ public class CollectinterviewController {
     }
 
     @DeleteMapping
-    public void deleteInterviewCollect(@RequestParam("uuid") String uuid,
-                                       @RequestParam("rd3session") String rd3session){
-        collectinterviewService.deleteCollectInterview(uuid, rd3session);
+    public void deleteInterviewCollect(@RequestBody Map<String,String> info){
+        collectinterviewService.deleteCollectInterview(info.get("uuid"), info.get("rd3session"));
     }
 }

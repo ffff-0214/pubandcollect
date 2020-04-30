@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping(value = "/impression")
@@ -39,8 +40,8 @@ public class PubimpressionController {
     }
 
     @DeleteMapping
-    public void deleteImpression(@RequestParam("uuid") String uuid){
-        pubimpressionService.deleteImpression(uuid);
+    public void deleteImpression(@RequestBody Map<String,String> uuid){
+        pubimpressionService.deleteImpression(uuid.get("uuid"));
     }
 
     @GetMapping
