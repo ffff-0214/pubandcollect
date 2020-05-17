@@ -2,7 +2,7 @@ package edu.qingtai.pubandcollect.domain;
 
 import java.sql.Date;
 
-public class PubinterviewVo {
+public class PubinterviewVoDetail {
     private String uuid;
 
     private String title;
@@ -19,7 +19,7 @@ public class PubinterviewVo {
 
     private String userimage;
 
-//    private String content;
+    private String content;
 
     private Boolean collect = Boolean.FALSE;
 
@@ -87,13 +87,13 @@ public class PubinterviewVo {
         this.userimage = userimage == null ? null : userimage.trim();
     }
 
-//    public String getContent() {
-//        return content;
-//    }
-//
-//    public void setContent(String content) {
-//        this.content = content == null ? null : content.trim();
-//    }
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content == null ? null : content.trim();
+    }
 
     public Boolean getCollect() {
         return collect;

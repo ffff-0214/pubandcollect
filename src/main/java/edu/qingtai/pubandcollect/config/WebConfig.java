@@ -25,7 +25,9 @@ public class WebConfig implements WebMvcConfigurer {
 //        registry.addInterceptor(getCorsInterceptor())
 //                .addPathPatterns("/**");
         registry.addInterceptor(getVerifyInterceptor())
-                .addPathPatterns("/**");
+                .addPathPatterns("/**").excludePathPatterns("/impression/content")
+        .excludePathPatterns("/infer/content").excludePathPatterns("/interview/content")
+        .excludePathPatterns("/impression/upTruth").excludePathPatterns("/impression/downTruth");
     }
 
     @Override

@@ -2,6 +2,7 @@ package edu.qingtai.pubandcollect.service;
 
 import edu.qingtai.pubandcollect.domain.Pubinfer;
 import edu.qingtai.pubandcollect.domain.PubinferVo;
+import edu.qingtai.pubandcollect.domain.PubinferVoDetail;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -17,4 +18,6 @@ public interface PubinferService {
     List<Pubinfer> queryInfers(int pageIndex);
 
     List<PubinferVo> queryTrueInfers(int pageIndex, String rd3session);
+
+    PubinferVoDetail queryContent(String uuid, String rd3session);
 }

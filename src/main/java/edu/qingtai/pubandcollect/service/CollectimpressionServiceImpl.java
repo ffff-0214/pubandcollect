@@ -44,10 +44,16 @@ public class CollectimpressionServiceImpl implements CollectimpressionService{
 
     @Override
     public List<PubimpressionVo> queryImpressionFromOpenid(String rd3session){
-        List<Pubimpression> pubimpressionList = pubimpressionMapper.selectImpressionByUuidList(
-                collectimpressionMapper.selectUuidByOpenid(redisUtils.get(rd3session)));
-
         List<PubimpressionVo> pubimpressionVoList = new ArrayList<>();
+
+        List<String> uuidList = collectimpressionMapper.selectUuidByOpenid(redisUtils.get(rd3session));
+
+        //???
+        if(uuidList == null || uuidList.isEmpty()){
+            return pubimpressionVoList;
+        }
+
+        List<Pubimpression> pubimpressionList = pubimpressionMapper.selectImpressionByUuidList(uuidList);
 
         if(pubimpressionList == null){
             return pubimpressionVoList;

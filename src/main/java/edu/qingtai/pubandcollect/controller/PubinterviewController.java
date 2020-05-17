@@ -3,6 +3,7 @@ package edu.qingtai.pubandcollect.controller;
 import edu.qingtai.pubandcollect.domain.Pubinterview;
 import edu.qingtai.pubandcollect.domain.PubinterviewRec;
 import edu.qingtai.pubandcollect.domain.PubinterviewVo;
+import edu.qingtai.pubandcollect.domain.PubinterviewVoDetail;
 import edu.qingtai.pubandcollect.service.PubinterviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -46,4 +47,11 @@ public class PubinterviewController {
                                                @RequestParam("rd3session") String rd3session){
         return pubinterviewService.queryTrueInterviews(pageIndex, rd3session);
     }
+
+    @GetMapping(value = "/content")
+    public PubinterviewVoDetail queryInterviewContent(@RequestParam("uuid") String uuid,
+                                                      @RequestParam("rd3session") String rd3session){
+        return pubinterviewService.queryContent(uuid, rd3session);
+    }
+
 }

@@ -2,6 +2,7 @@ package edu.qingtai.pubandcollect.service;
 
 import edu.qingtai.pubandcollect.domain.Pubinterview;
 import edu.qingtai.pubandcollect.domain.PubinterviewVo;
+import edu.qingtai.pubandcollect.domain.PubinterviewVoDetail;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -17,4 +18,6 @@ public interface PubinterviewService {
     List<Pubinterview> queryInterviews(int pageIndex);
 
     List<PubinterviewVo> queryTrueInterviews(int pageIndex, String rd3session);
+
+    PubinterviewVoDetail queryContent(String uuid, String rd3session);
 }

@@ -44,10 +44,16 @@ public class CollectinferServiceImpl implements CollectinferService{
 
     @Override
     public List<PubinferVo> queryInferFromOpenid(String rd3session){
-        List<Pubinfer> pubinferList = pubinferMapper.selectInferByUuidList(
-                collectinferMapper.selectUuidByOpenid(redisUtils.get(rd3session)));
-
         List<PubinferVo> pubinferVoList = new ArrayList<>();
+
+        List<String> uuidList = collectinferMapper.selectUuidByOpenid(redisUtils.get(rd3session));
+
+        //???
+        if(uuidList == null || uuidList.isEmpty()){
+            return pubinferVoList;
+        }
+
+        List<Pubinfer> pubinferList = pubinferMapper.selectInferByUuidList(uuidList);
 
         if(pubinferList == null){
             return pubinferVoList;

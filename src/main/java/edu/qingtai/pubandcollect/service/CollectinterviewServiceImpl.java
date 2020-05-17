@@ -33,10 +33,15 @@ public class CollectinterviewServiceImpl implements CollectinterviewService{
 
     @Override
     public List<PubinterviewVo> queryInterviewFromOpenid(String rd3session){
-        List<Pubinterview> pubinterviewList = pubinterviewMapper.selectInterviewByUuidList(
-                collectinterviewMapper.selectUuidByOpenid(redisUtils.get(rd3session)));
-
         List<PubinterviewVo> pubinterviewVoList = new ArrayList<>();
+
+        List<String> uuidList = collectinterviewMapper.selectUuidByOpenid(redisUtils.get(rd3session));
+        if(uuidList == null || uuidList.isEmpty()){
+            return pubinterviewVoList;
+        }
+        //不能用else，因为pubinterviewList下面还需要访问
+        List<Pubinterview> pubinterviewList = pubinterviewMapper.selectInterviewByUuidList(uuidList);
+
 
         if(pubinterviewList == null){
             return pubinterviewVoList;

@@ -2,16 +2,18 @@ package edu.qingtai.pubandcollect.domain;
 
 import java.sql.Date;
 
-public class PubinterviewVo {
+public class PubinferVoDetail {
     private String uuid;
 
     private String title;
 
+    private String images;
+
     private Date inserttime;
 
-    private Integer favorite;
+    private String label;
 
-    private String images;
+    private Integer favorite;
 
     private String openid;
 
@@ -19,7 +21,9 @@ public class PubinterviewVo {
 
     private String userimage;
 
-//    private String content;
+    private String content;
+
+    private String[] labels;
 
     private Boolean collect = Boolean.FALSE;
 
@@ -39,6 +43,14 @@ public class PubinterviewVo {
         this.title = title == null ? null : title.trim();
     }
 
+    public String getImages() {
+        return images;
+    }
+
+    public void setImages(String images) {
+        this.images = images == null ? null : images.trim();
+    }
+
     public Date getInserttime() {
         return inserttime;
     }
@@ -47,20 +59,20 @@ public class PubinterviewVo {
         this.inserttime = inserttime;
     }
 
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label == null ? null : label.trim();
+    }
+
     public Integer getFavorite() {
         return favorite;
     }
 
     public void setFavorite(Integer favorite) {
         this.favorite = favorite;
-    }
-
-    public String getImages() {
-        return images;
-    }
-
-    public void setImages(String images) {
-        this.images = images == null ? null : images.trim();
     }
 
     public String getOpenid() {
@@ -87,13 +99,13 @@ public class PubinterviewVo {
         this.userimage = userimage == null ? null : userimage.trim();
     }
 
-//    public String getContent() {
-//        return content;
-//    }
-//
-//    public void setContent(String content) {
-//        this.content = content == null ? null : content.trim();
-//    }
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content == null ? null : content.trim();
+    }
 
     public Boolean getCollect() {
         return collect;
@@ -101,5 +113,13 @@ public class PubinterviewVo {
 
     public void setCollect(Boolean collect) {
         this.collect = collect;
+    }
+
+    public String[] getLabels() {
+        return labels;
+    }
+
+    public void setLabels(){
+        this.labels = this.label.split(",");
     }
 }

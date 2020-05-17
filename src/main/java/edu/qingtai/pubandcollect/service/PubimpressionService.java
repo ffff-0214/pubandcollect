@@ -2,6 +2,7 @@ package edu.qingtai.pubandcollect.service;
 
 import edu.qingtai.pubandcollect.domain.Pubimpression;
 import edu.qingtai.pubandcollect.domain.PubimpressionVo;
+import edu.qingtai.pubandcollect.domain.PubimpressionVoDetail;
 
 import java.util.List;
 
@@ -16,4 +17,10 @@ public interface PubimpressionService {
     List<Pubimpression> queryImpressions(int PageIndex);
 
     List<PubimpressionVo> queryTrueImpressions(int pageIndex, String rd3session);
+
+    PubimpressionVoDetail queryContent(String uuid, String rd3session);
+
+    void upTruth(String uuid);
+
+    void downTruth(String uuid);
 }

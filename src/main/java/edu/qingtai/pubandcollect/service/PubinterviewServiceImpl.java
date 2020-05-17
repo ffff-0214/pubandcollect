@@ -2,6 +2,7 @@ package edu.qingtai.pubandcollect.service;
 
 import edu.qingtai.pubandcollect.domain.Pubinterview;
 import edu.qingtai.pubandcollect.domain.PubinterviewVo;
+import edu.qingtai.pubandcollect.domain.PubinterviewVoDetail;
 import edu.qingtai.pubandcollect.mapper.CollectinterviewMapper;
 import edu.qingtai.pubandcollect.mapper.PubinterviewMapper;
 import edu.qingtai.pubandcollect.util.ConstData;
@@ -110,6 +111,19 @@ public class PubinterviewServiceImpl implements PubinterviewService{
             }
 
             return pubinterviewVoList;
+        }
+    }
+
+    @Override
+    public PubinterviewVoDetail queryContent(String uuid, String rd3session){
+        List<String> uuidList = collectinterviewMapper.selectUuidByOpenid(redisUtils.get(rd3session));
+        Pubinterview pubinterview = pubinterviewMapper.selectByPrimaryKey(uuid);
+        PubinterviewVoDetail pubinterviewVoDetail = mapper.map(pubinterview, PubinterviewVoDetail.class);
+        if(uuidList.contains(uuid)){
+            pubinterviewVoDetail.setCollect(Boolean.TRUE);
+            return pubinterviewVoDetail;
+        }else{
+            return pubinterviewVoDetail;
         }
     }
 }

@@ -2,7 +2,7 @@ package edu.qingtai.pubandcollect.domain;
 
 import java.sql.Date;
 
-public class PubimpressionVo {
+public class PubimpressionVoDetail {
     private String uuid;
 
     private String position;
@@ -29,7 +29,7 @@ public class PubimpressionVo {
 
     private String userimage;
 
-//    private String content;
+    private String content;
 
     private Boolean collect = Boolean.FALSE;
 
@@ -139,13 +139,13 @@ public class PubimpressionVo {
         this.userimage = userimage == null ? null : userimage.trim();
     }
 
-//    public String getContent() {
-//        return content;
-//    }
-//
-//    public void setContent(String content) {
-//        this.content = content == null ? null : content.trim();
-//    }
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content == null ? null : content.trim();
+    }
 
     public Boolean getCollect() {
         return collect;

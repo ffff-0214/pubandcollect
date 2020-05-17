@@ -3,6 +3,7 @@ package edu.qingtai.pubandcollect.controller;
 import edu.qingtai.pubandcollect.domain.Pubinfer;
 import edu.qingtai.pubandcollect.domain.PubinferRec;
 import edu.qingtai.pubandcollect.domain.PubinferVo;
+import edu.qingtai.pubandcollect.domain.PubinferVoDetail;
 import edu.qingtai.pubandcollect.service.PubinferService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -45,6 +46,12 @@ public class PubinferController {
     //uuid: uuid
     public void deleteInfer(@RequestBody Map<String,String> uuid){
         pubinferService.deleteInfer(uuid.get("uuid"));
+    }
+
+    @GetMapping(value = "/content")
+    public PubinferVoDetail getInferContent(@RequestParam("uuid") String uuid,
+                                            @RequestParam("rd3session") String rd3session){
+        return pubinferService.queryContent(uuid, rd3session);
     }
 
     @GetMapping

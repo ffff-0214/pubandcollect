@@ -2,6 +2,7 @@ package edu.qingtai.pubandcollect.service;
 
 import edu.qingtai.pubandcollect.domain.Pubinfer;
 import edu.qingtai.pubandcollect.domain.PubinferVo;
+import edu.qingtai.pubandcollect.domain.PubinferVoDetail;
 import edu.qingtai.pubandcollect.mapper.CollectinferMapper;
 import edu.qingtai.pubandcollect.mapper.PubinferMapper;
 import edu.qingtai.pubandcollect.util.ConstData;
@@ -114,6 +115,20 @@ public class PubinferServiceImpl implements PubinferService{
                 }
             }
             return pubinferVoList;
+        }
+    }
+
+    @Override
+    public PubinferVoDetail queryContent(String uuid, String rd3session){
+        List<String> uuidList = collectinferMapper.selectUuidByOpenid(redisUtils.get(rd3session));
+        Pubinfer pubinfer = pubinferMapper.selectByPrimaryKey(uuid);
+        PubinferVoDetail pubinferVoDetail = mapper.map(pubinfer, PubinferVoDetail.class);
+        pubinferVoDetail.setLabels();
+        if(uuidList.contains(uuid)){
+            pubinferVoDetail.setCollect(Boolean.TRUE);
+            return pubinferVoDetail;
+        }else{
+            return pubinferVoDetail;
         }
     }
 }

@@ -2,6 +2,7 @@ package edu.qingtai.pubandcollect.service;
 
 import edu.qingtai.pubandcollect.domain.Pubimpression;
 import edu.qingtai.pubandcollect.domain.PubimpressionVo;
+import edu.qingtai.pubandcollect.domain.PubimpressionVoDetail;
 import edu.qingtai.pubandcollect.mapper.CollectimpressionMapper;
 import edu.qingtai.pubandcollect.mapper.PubimpressionMapper;
 import edu.qingtai.pubandcollect.util.ConstData;
@@ -51,6 +52,7 @@ public class PubimpressionServiceImpl implements PubimpressionService{
         pubimpression.setUsername(username);
         pubimpression.setUserimage(userimage);
         pubimpression.setFavorite(0);
+        pubimpression.setTruth(0);
         pubimpressionMapper.insert(pubimpression);
 
     }
@@ -119,5 +121,33 @@ public class PubimpressionServiceImpl implements PubimpressionService{
             return pubimpressionVoList;
         }
 
+    }
+
+    @Override
+    public PubimpressionVoDetail queryContent(String uuid, String rd3session){
+        List<String> uuidList = collectimpressionMapper.selectUuidByOpenid(redisUtils.get(rd3session));
+        Pubimpression pubimpression = pubimpressionMapper.selectByPrimaryKey(uuid);
+        PubimpressionVoDetail pubimpressionVoDetail = mapper.map(pubimpression, PubimpressionVoDetail.class);
+        pubimpressionVoDetail.setLabels();
+        if(uuidList.contains(uuid)){
+            pubimpressionVoDetail.setCollect(Boolean.TRUE);
+            return pubimpressionVoDetail;
+        }else{
+            return pubimpressionVoDetail;
+        }
+    }
+
+    @Override
+    public void upTruth(String uuid){
+        Pubimpression pubimpression = pubimpressionMapper.selectByPrimaryKey(uuid);
+        pubimpression.setTruth(pubimpression.getTruth() + 1);
+        pubimpressionMapper.updateByPrimaryKey(pubimpression);
+    }
+
+    @Override
+    public void downTruth(String uuid){
+        Pubimpression pubimpression = pubimpressionMapper.selectByPrimaryKey(uuid);
+        pubimpression.setTruth(pubimpression.getTruth() - 1);
+        pubimpressionMapper.updateByPrimaryKey(pubimpression);
     }
 }

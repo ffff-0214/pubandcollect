@@ -21,7 +21,7 @@ public class PubinferVo {
 
     private String userimage;
 
-    private String content;
+//    private String content;
 
     private String[] labels;
 
@@ -99,13 +99,13 @@ public class PubinferVo {
         this.userimage = userimage == null ? null : userimage.trim();
     }
 
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content == null ? null : content.trim();
-    }
+//    public String getContent() {
+//        return content;
+//    }
+//
+//    public void setContent(String content) {
+//        this.content = content == null ? null : content.trim();
+//    }
 
     public Boolean getCollect() {
         return collect;
